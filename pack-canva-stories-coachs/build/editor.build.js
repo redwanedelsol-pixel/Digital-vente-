@@ -211,6 +211,8 @@ ${STORY_CSS}
 #mvbar.on{display:flex}
 #mvbar button{background:#0c0c0e;color:var(--ink);border:1px solid var(--line);border-radius:7px;min-width:40px;height:36px;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
 #mvbar button:active{transform:translateY(1px)}
+#mvbar input[type=color]{width:40px;height:36px;border:1px solid var(--line);border-radius:7px;background:none;padding:2px;cursor:pointer}
+#mvbar select{background:#0c0c0e;color:var(--ink);border:1px solid var(--line);border-radius:7px;height:36px;font:inherit;font-size:13px;padding:0 6px;cursor:pointer}
 </style>
 
 <div class="app">
@@ -251,6 +253,14 @@ ${STORY_CSS}
   <button id="mvplus" title="Agrandir">A+</button>
   <button id="mvleft" title="Aligner à gauche">⇤</button>
   <button id="mvcenter" title="Centrer">≡</button>
+  <input id="mvcolor" type="color" title="Couleur de ce bloc" value="#ffffff" />
+  <select id="mvfont" title="Police de ce bloc">
+    <option value="">Police…</option>
+    <option value="'Archivo Black',sans-serif">Gras</option>
+    <option value="'Anton',sans-serif">Condensé</option>
+    <option value="'Dancing Script',cursive">Script</option>
+    <option value="'Archivo',sans-serif">Simple</option>
+  </select>
   <button id="mvreset" title="Réinitialiser ce bloc">⟲</button>
 </div>
 
@@ -435,7 +445,10 @@ document.getElementById('dlall').onclick=async()=>{ for(const st of STORIES){ co
 let moveMode=false, selEl=null, selKey=null;
 const mvbar=document.getElementById('mvbar');
 function movables(el){ return [...el.children].filter(c=>!c.classList.contains('photo') && !c.classList.contains('brk')); }
-function applyOne(el,a){ el.style.transform='translate('+(a.dx||0)+'px,'+(a.dy||0)+'px) scale('+(a.sc||1)+')'; el.style.transformOrigin='center center'; if(a.align) el.style.textAlign=a.align; }
+function paintColor(el,c){ el.style.color=c; el.querySelectorAll('*').forEach(n=>n.style.color=c); }
+function applyFont(el,f){ el.style.fontFamily=f; el.querySelectorAll('*').forEach(n=>n.style.fontFamily=f); }
+function applyOne(el,a){ el.style.transform='translate('+(a.dx||0)+'px,'+(a.dy||0)+'px) scale('+(a.sc||1)+')'; el.style.transformOrigin='center center';
+  if(a.align) el.style.textAlign=a.align; if(a.color) paintColor(el,a.color); if(a.font) applyFont(el,a.font); }
 function applyAdj(el,st){ const adj=st.f._adj||{}; movables(el).forEach((c,i)=>{ c.dataset.move='m'+i; const a=adj['m'+i]; if(a) applyOne(c,a); }); }
 function getAdj(key){ const f=STORIES[idx].f; f._adj=f._adj||{}; return f._adj[key]=f._adj[key]||{dx:0,dy:0,sc:1,align:''}; }
 function scaleNow(){ return (frame.clientWidth||460)/1080; }
@@ -445,7 +458,9 @@ document.querySelectorAll('#modeseg button').forEach(b=>b.onclick=()=>setMode(b.
 document.getElementById('resetall').onclick=()=>{ delete STORIES[idx].f._adj; paint(); };
 
 function clearSel(){ if(selEl) selEl.classList.remove('mv-sel'); selEl=null; selKey=null; mvbar.classList.remove('on'); }
-function select(el){ if(selEl) selEl.classList.remove('mv-sel'); selEl=el; selKey=el.dataset.move; el.classList.add('mv-sel'); posBar(); }
+function select(el){ if(selEl) selEl.classList.remove('mv-sel'); selEl=el; selKey=el.dataset.move; el.classList.add('mv-sel');
+  const a=(STORIES[idx].f._adj||{})[selKey]||{}; document.getElementById('mvcolor').value=a.color||'#ffffff'; document.getElementById('mvfont').value=a.font||''; posBar(); }
+function reselect(key){ const el=[...stage.children].find(c=>c.dataset.move===key); if(el) select(el); }
 function posBar(){ if(!selEl) return; const r=selEl.getBoundingClientRect();
   mvbar.style.left=Math.max(8,Math.min(window.innerWidth-240, r.left))+'px';
   mvbar.style.top=Math.max(8, r.top-48)+'px'; mvbar.classList.add('on'); }
@@ -466,7 +481,10 @@ document.getElementById('mvminus').onclick=()=>{ if(!selEl)return; const a=getAd
 document.getElementById('mvplus').onclick=()=>{ if(!selEl)return; const a=getAdj(selKey); a.sc=Math.min(3,(a.sc||1)+0.08); applyOne(selEl,a); posBar(); };
 document.getElementById('mvleft').onclick=()=>{ if(!selEl)return; const a=getAdj(selKey); a.align='left'; applyOne(selEl,a); };
 document.getElementById('mvcenter').onclick=()=>{ if(!selEl)return; const a=getAdj(selKey); a.align='center'; applyOne(selEl,a); };
-document.getElementById('mvreset').onclick=()=>{ if(!selEl)return; delete STORIES[idx].f._adj[selKey]; selEl.style.transform=''; selEl.style.textAlign=''; posBar(); };
+document.getElementById('mvcolor').oninput=e=>{ if(!selEl)return; const a=getAdj(selKey); a.color=e.target.value; paintColor(selEl,a.color); };
+document.getElementById('mvfont').onchange=e=>{ if(!selEl)return; const k=selKey; const a=getAdj(k);
+  if(e.target.value){ a.font=e.target.value; applyFont(selEl,a.font); } else { delete a.font; paint(); reselect(k); } };
+document.getElementById('mvreset').onclick=()=>{ if(!selEl)return; const k=selKey; delete STORIES[idx].f._adj[k]; paint(); reselect(k); };
 window.addEventListener('resize', ()=>{ if(selEl) posBar(); });
 window.addEventListener('scroll', ()=>{ if(selEl) posBar(); }, true);
 
