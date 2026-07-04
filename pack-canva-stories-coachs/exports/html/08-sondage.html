@@ -1,0 +1,77 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+.stage{position:relative;width:1080px;height:1920px;overflow:hidden;color:#fff;
+  font-family:"Archivo",sans-serif;isolation:isolate}
+.stage::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  mix-blend-mode:soft-light;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(135% 100% at 50% 42%, transparent 50%, rgba(0,0,0,.7) 100%)}
+.stage > *{position:absolute;z-index:3}
+
+.pad{left:80px;right:80px}
+.big{font-family:"Archivo Black",sans-serif;text-transform:uppercase;line-height:.86;
+  letter-spacing:-.02em}
+.tall{font-family:"Anton",sans-serif;text-transform:uppercase;line-height:.82;
+  letter-spacing:.005em}
+.script{font-family:"Dancing Script",cursive;font-weight:600;text-transform:none;letter-spacing:0}
+.amber{color:#e0913f}
+.dot{color:#e0913f}
+
+.brand{top:70px;left:80px;font-size:24px;letter-spacing:.34em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);font-weight:600}
+.time{font-size:34px;letter-spacing:.24em;font-variant-numeric:tabular-nums;color:rgba(255,255,255,.92)}
+.kicker{font-size:27px;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.62);font-weight:600}
+.kicker b{color:#e0913f;font-weight:800;margin-right:14px}
+.def{font-size:26px;line-height:1.55;color:rgba(255,255,255,.62);text-align:justify;font-weight:400}
+.cap{font-size:30px;line-height:1.5;color:rgba(255,255,255,.72);font-weight:400}
+.tag{font-size:23px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:600}
+.status b{color:#e0913f}
+.stars{font-size:40px;letter-spacing:12px;color:#e0913f}
+
+/* header bar with hairlines */
+.hdr{top:96px;left:80px;right:80px;display:flex;align-items:center;gap:26px;
+  font-size:23px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:600}
+.hdr .ln{flex:1;height:1px;background:rgba(255,255,255,.45)}
+.hdr .mid{font-family:"Archivo Black",sans-serif;letter-spacing:.04em;font-size:30px;color:#fff}
+.hdr .mid small{display:block;font-family:"Archivo",sans-serif;font-weight:600;font-size:19px;
+  letter-spacing:.3em;color:#e0913f;text-align:center;margin-top:2px}
+
+/* corner brackets */
+.brk{position:absolute;width:120px;height:120px;border:3px solid rgba(255,255,255,.55);z-index:3}
+.brk.tl{border-right:0;border-bottom:0}
+.brk.tr{border-left:0;border-bottom:0}
+.brk.bl{border-right:0;border-top:0}
+.brk.br{border-left:0;border-top:0}
+
+/* date strip */
+.strip{display:flex;gap:34px;align-items:center;font-family:"Archivo Black",sans-serif;font-size:58px}
+.strip .d{color:rgba(255,255,255,.85)}
+.strip .d.off{color:rgba(255,255,255,.28)}
+.strip .d.on{position:relative;color:#fff;display:flex;align-items:center;justify-content:center;
+  width:96px;height:96px}
+.strip .d.on::before{content:"";position:absolute;inset:0;border-radius:50%;background:#e0913f;z-index:-1}
+.mlabel{font-size:26px;letter-spacing:.32em;text-transform:uppercase;color:#e0913f;font-weight:700}
+
+/* this-or-that */
+.poll{display:flex;gap:30px;align-items:center;width:100%}
+.opt{flex:1;border:2px solid rgba(255,255,255,.3);border-radius:22px;padding:40px 20px;text-align:center;
+  font-family:"Archivo Black",sans-serif;font-size:52px;text-transform:uppercase;line-height:1}
+.vs{font-size:30px;letter-spacing:.2em;color:rgba(255,255,255,.6);font-weight:700}
+
+/* badge */
+.badge{display:inline-flex;align-items:center;gap:14px;font-size:24px;letter-spacing:.28em;
+  text-transform:uppercase;color:#e0913f;border:2px solid rgba(224,145,63,.6);border-radius:999px;
+  padding:14px 30px;font-weight:700}
+.badge i{width:14px;height:14px;border-radius:50%;background:#e0913f;display:block}
+</style></head>
+<body><div class="stage" style="background:radial-gradient(120% 82% at 50% 18%, rgba(200,202,208,.30), transparent 56%),
+          radial-gradient(150% 120% at 50% 124%, rgba(0,0,0,.72), transparent 60%),
+          linear-gradient(180deg, rgb(15,15,17), #060607 88%)">
+    <div class="pad kicker" style="top:520px"><b>//</b> ton avis ?</div>
+    <div class="tall pad" style="top:600px;font-size:200px">THIS OR<br>THAT</div>
+    <div class="pad poll" style="top:1150px">
+      <div class="opt">Équipe<br>matin</div><div class="vs">VS</div><div class="opt">Équipe<br>soir</div>
+    </div>
+    <div class="pad cap" style="top:1440px;text-align:center">Tape sur ton choix 👆 — je lis toutes les réponses.</div>
+    <div style="top:1600px;left:0;right:0;text-align:center" class="tag">engagement</div></div></body></html>
