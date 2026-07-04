@@ -1,0 +1,300 @@
+<title>Pack Canva Stories — Édition Nocturne</title>
+<style>
+  :root{
+    --page:#0a0a0b;
+    --panel:#101012;
+    --line:rgba(255,255,255,.09);
+    --ink:#f3f1ec;
+    --muted:#948f86;
+    --faint:#6a655d;
+    --amber:#d68a44;
+    --sans:"Helvetica Neue",Helvetica,"Segoe UI",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0}
+  .wrap{
+    background:var(--page);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    padding:clamp(20px,5vw,64px) clamp(16px,5vw,72px) 80px;
+    /* ambient warm light, very subtle */
+    background-image:
+      radial-gradient(120% 60% at 80% -10%, rgba(214,138,68,.10), transparent 60%),
+      radial-gradient(90% 50% at 0% 0%, rgba(120,140,170,.06), transparent 55%);
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead{max-width:1180px;margin:0 auto clamp(28px,5vw,56px);border-bottom:1px solid var(--line);padding-bottom:clamp(20px,3vw,34px)}
+  .eyebrow{display:flex;gap:14px;align-items:center;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--faint)}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber)}
+  h1{
+    font-size:clamp(42px,9vw,104px);
+    line-height:.92;letter-spacing:-.045em;font-weight:900;
+    text-transform:uppercase;text-wrap:balance;
+    margin:.28em 0 .18em;
+  }
+  h1 .thin{display:block;font-weight:300;font-size:.32em;letter-spacing:.02em;text-transform:none;color:var(--muted);margin-top:.5em}
+  .lede{max-width:60ch;color:var(--muted);font-size:clamp(15px,1.5vw,17px);line-height:1.65}
+  .lede b{color:var(--ink);font-weight:600}
+
+  /* ---------- how-to strip ---------- */
+  .notes{
+    max-width:1180px;margin:0 auto clamp(30px,5vw,54px);
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  }
+  .note{background:var(--panel);padding:20px 22px}
+  .note .k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+  .note p{margin:0;font-size:13.5px;line-height:1.55;color:var(--muted)}
+  .note p b{color:var(--ink);font-weight:600}
+
+  /* ---------- gallery ---------- */
+  .gallery{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:clamp(20px,2.6vw,34px)}
+  figure{margin:0;display:flex;flex-direction:column;gap:12px}
+  figcaption{display:flex;gap:10px;align-items:baseline;font-size:12.5px;color:var(--muted)}
+  figcaption .num{font-variant-numeric:tabular-nums;color:var(--faint);letter-spacing:.1em}
+  figcaption .nm{color:var(--ink);font-weight:600}
+  figcaption .cat{margin-left:auto;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+  /* ---------- the story canvas (9:16) ---------- */
+  .story{
+    position:relative;aspect-ratio:9/16;width:100%;border-radius:12px;overflow:hidden;
+    container-type:inline-size;
+    color:#fff;isolation:isolate;
+    --tint:20,18,16; --glow:210,200,185; --gx:50%; --gy:32%;
+    background:
+      radial-gradient(120% 85% at var(--gx) var(--gy), rgba(var(--glow),.26), transparent 56%),
+      radial-gradient(150% 120% at 50% 122%, rgba(0,0,0,.7), transparent 62%),
+      linear-gradient(180deg, rgb(var(--tint)), #060607 88%);
+    box-shadow:0 20px 50px -24px rgba(0,0,0,.9), inset 0 0 0 1px rgba(255,255,255,.05);
+  }
+  /* film grain */
+  .story::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:soft-light;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* vignette */
+  .story::after{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(130% 100% at 50% 42%, transparent 52%, rgba(0,0,0,.66) 100%);
+  }
+  .story > *{position:absolute;z-index:3}
+
+  /* corner chrome */
+  .brand{top:5.5cqw;left:6cqw;font-size:2.5cqw;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+  .tr{top:5.5cqw;right:6cqw;font-size:2.5cqw;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:1.6cqw}
+  .live{width:1.9cqw;height:1.9cqw;border-radius:50%;background:var(--amber);box-shadow:0 0 3cqw var(--amber)}
+  .foot{left:6cqw;right:6cqw;bottom:6cqw;display:flex;justify-content:space-between;align-items:flex-end;gap:3cqw}
+  .foot .lab{font-size:2.4cqw;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+  .time{font-size:3.5cqw;letter-spacing:.16em;font-variant-numeric:tabular-nums;color:rgba(255,255,255,.9)}
+
+  /* main content block */
+  .center{inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:14cqw 8cqw;gap:3cqw}
+  .center.low{justify-content:flex-end;align-items:flex-start;text-align:left;padding:0 7cqw 22cqw}
+  .center.left{align-items:flex-start;text-align:left;padding-left:7cqw;padding-right:7cqw}
+
+  .kicker{font-size:2.9cqw;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+  .kicker .slash{color:var(--amber);margin-right:1.4cqw}
+  .big{font-size:21cqw;font-weight:900;line-height:.9;letter-spacing:-.05em;text-transform:uppercase}
+  .big.two{font-size:16cqw}
+  .quote{font-size:8.2cqw;font-weight:800;line-height:1.06;letter-spacing:-.02em;text-transform:uppercase}
+  .cap{font-size:3.2cqw;line-height:1.55;color:rgba(255,255,255,.68);max-width:74%;letter-spacing:.01em}
+  .center.low .cap,.center.left .cap{max-width:88%}
+  .amber{color:var(--amber)}
+
+  /* numbered list (conseil) */
+  .list{display:flex;flex-direction:column;gap:2.6cqw;width:100%;margin-top:1cqw}
+  .list .row{display:flex;gap:3cqw;align-items:baseline}
+  .list .ix{font-size:3.4cqw;font-weight:800;color:var(--amber);font-variant-numeric:tabular-nums;letter-spacing:.05em;min-width:5cqw}
+  .list .tx{font-size:3.5cqw;line-height:1.4;color:rgba(255,255,255,.82)}
+
+  /* stars */
+  .stars{font-size:3.6cqw;letter-spacing:.6cqw;color:#fff}
+
+  /* badge */
+  .badge{display:inline-flex;align-items:center;gap:1.4cqw;font-size:2.5cqw;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(214,138,68,.55);border-radius:99px;padding:1.4cqw 3.2cqw}
+
+  /* poll (this or that) */
+  .poll{display:flex;gap:3cqw;width:100%;margin-top:2cqw}
+  .poll .opt{flex:1;border:1px solid rgba(255,255,255,.28);border-radius:2cqw;padding:4cqw 2cqw;text-align:center;font-size:4cqw;font-weight:700;letter-spacing:-.01em}
+  .poll .vs{align-self:center;font-size:3cqw;color:var(--muted);letter-spacing:.1em}
+
+  /* subtle load-in */
+  @media (prefers-reduced-motion:no-preference){
+    figure{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i,0)*65ms)}
+    @keyframes rise{to{opacity:1;transform:none}}
+  }
+
+  footer{max-width:1180px;margin:clamp(40px,6vw,72px) auto 0;padding-top:26px;border-top:1px solid var(--line);color:var(--faint);font-size:12.5px;letter-spacing:.04em;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow"><span class="dot"></span> Pack Canva · 30 stories · Édition Nocturne</div>
+    <h1>Archive
+      <span class="thin">Un kit de stories « dark aesthetic » pensé pour les coachs business &amp; mindset — grosse typo, ambiance cinématique, contenu prêt à personnaliser.</span>
+    </h1>
+    <p class="lede">Direction artistique inspirée des stories « archive » qui cartonnent sur Pinterest : fond photo sombre, titre blanc ultra-gras, timestamp, légende fine. Ci-dessous <b>9 gabarits</b> représentatifs des 8 catégories du pack. Le style est <b>volontairement mono-thème</b> (nuit) — c'est l'identité du produit.</p>
+  </header>
+
+  <section class="notes" aria-label="Mode d'emploi">
+    <div class="note"><div class="k">Format</div><p><b>1080 × 1920 px</b> — story Instagram / TikTok, ratio 9:16.</p></div>
+    <div class="note"><div class="k">Photo</div><p>Remplace le fond dégradé par <b>ta propre photo</b> sombre (bureau, ambiance, portrait).</p></div>
+    <div class="note"><div class="k">Texte</div><p>Zones de texte <b>modifiables</b> : titre, légende, timestamp, @compte.</p></div>
+    <div class="note"><div class="k">Livraison</div><p>À recréer dans Canva comme <b>template partagé</b>, un onglet par story.</p></div>
+  </section>
+
+  <div class="gallery">
+
+    <!-- 01 BIENVENUE -->
+    <figure style="--i:0">
+      <div class="story" style="--tint:22,17,13;--glow:224,150,80;--gx:50%;--gy:80%">
+        <div class="brand">archive · @votre.compte</div>
+        <div class="tr"><span class="live"></span> active</div>
+        <div class="center">
+          <div class="time">9:42:07 PM</div>
+          <div class="big">Bienvenue</div>
+          <div class="cap">Ici on parle business, mindset &amp; croissance. Reste, ça va te servir.</div>
+        </div>
+        <div class="foot"><span class="lab">le rendez-vous du lundi</span><span class="lab">status : on</span></div>
+      </div>
+      <figcaption><span class="num">01</span><span class="nm">Bienvenue</span><span class="cat">Branding</span></figcaption>
+    </figure>
+
+    <!-- 02 CITATION -->
+    <figure style="--i:1">
+      <div class="story" style="--tint:14,15,18;--glow:180,196,214;--gx:50%;--gy:8%">
+        <div class="brand">archive · citation</div>
+        <div class="center low">
+          <div class="kicker"><span class="slash">//</span>mindset</div>
+          <div class="quote">Le succès<br>commence par<br>une décision.</div>
+          <div class="cap">— et la première, c'est de continuer même quand personne ne regarde.</div>
+        </div>
+        <div class="foot"><span class="lab">time &amp; discipline</span><span class="time">11:11</span></div>
+      </div>
+      <figcaption><span class="num">02</span><span class="nm">Citation</span><span class="cat">Mindset</span></figcaption>
+    </figure>
+
+    <!-- 03 CONSEIL -->
+    <figure style="--i:2">
+      <div class="story" style="--tint:12,13,16;--glow:150,176,202;--gx:50%;--gy:42%">
+        <div class="brand">archive · conseil</div>
+        <div class="tr">01 / 03</div>
+        <div class="center left">
+          <div class="kicker"><span class="slash">//</span>conseil du jour</div>
+          <div class="big two">3 erreurs</div>
+          <div class="cap">quand tu démarres ton activité 👇</div>
+          <div class="list">
+            <div class="row"><span class="ix">01</span><span class="tx">Attendre d'être « prêt » pour te lancer.</span></div>
+            <div class="row"><span class="ix">02</span><span class="tx">Copier tout le monde au lieu de ta voix.</span></div>
+            <div class="row"><span class="ix">03</span><span class="tx">Baisser tes prix par peur du silence.</span></div>
+          </div>
+        </div>
+        <div class="foot"><span class="lab">enregistre pour plus tard</span><span class="time">04:37 PM</span></div>
+      </div>
+      <figcaption><span class="num">03</span><span class="nm">3 erreurs à éviter</span><span class="cat">Valeur</span></figcaption>
+    </figure>
+
+    <!-- 04 TEMOIGNAGE -->
+    <figure style="--i:3">
+      <div class="story" style="--tint:18,16,15;--glow:212,182,150;--gx:22%;--gy:36%">
+        <div class="brand">archive · avis client</div>
+        <div class="center low">
+          <div class="kicker"><span class="slash">//</span>témoignage</div>
+          <div class="quote" style="font-size:6.6cqw">« J'ai enfin osé<br>lancer mon<br>activité. »</div>
+          <div class="stars">★★★★★</div>
+          <div class="cap">Camille — accompagnement 8 semaines</div>
+        </div>
+        <div class="foot"><span class="lab">preuve sociale</span><span class="time">08:02 PM</span></div>
+      </div>
+      <figcaption><span class="num">04</span><span class="nm">Témoignage</span><span class="cat">Preuve</span></figcaption>
+    </figure>
+
+    <!-- 05 OFFRE -->
+    <figure style="--i:4">
+      <div class="story" style="--tint:20,15,11;--glow:232,160,92;--gx:50%;--gy:46%">
+        <div class="brand">archive · offre</div>
+        <div class="tr"><span class="live"></span> new</div>
+        <div class="center">
+          <div class="badge"><span class="live" style="width:1.4cqw;height:1.4cqw;box-shadow:none"></span> nouveau</div>
+          <div class="big two">C'est<br>dispo.</div>
+          <div class="cap">Mon nouvel accompagnement est ouvert.<br><span class="amber">Lien en bio</span> — places limitées.</div>
+        </div>
+        <div class="foot"><span class="lab">ouverture des inscriptions</span><span class="time">06:15 PM</span></div>
+      </div>
+      <figcaption><span class="num">05</span><span class="nm">C'est disponible</span><span class="cat">Offre</span></figcaption>
+    </figure>
+
+    <!-- 06 SONDAGE -->
+    <figure style="--i:5">
+      <div class="story" style="--tint:15,15,17;--glow:200,202,208;--gx:50%;--gy:18%">
+        <div class="brand">archive · sondage</div>
+        <div class="center left" style="justify-content:center">
+          <div class="kicker"><span class="slash">//</span>ton avis ?</div>
+          <div class="big two" style="font-size:11cqw">This or<br>that</div>
+          <div class="poll">
+            <div class="opt">Équipe<br>matin</div>
+            <div class="vs">vs</div>
+            <div class="opt">Équipe<br>soir</div>
+          </div>
+          <div class="cap">Réponds en tapant sur l'option — je lis tout.</div>
+        </div>
+        <div class="foot"><span class="lab">engagement</span><span class="time">07:20 PM</span></div>
+      </div>
+      <figcaption><span class="num">06</span><span class="nm">This or that</span><span class="cat">Engagement</span></figcaption>
+    </figure>
+
+    <!-- 07 COULISSES -->
+    <figure style="--i:6">
+      <div class="story" style="--tint:16,14,12;--glow:222,142,72;--gx:82%;--gy:20%">
+        <div class="brand">archive · behind the scenes</div>
+        <div class="tr">↳ save</div>
+        <div class="center low">
+          <div class="kicker"><span class="slash">//</span>dans les coulisses</div>
+          <div class="quote" style="font-size:7.4cqw">On construit<br>pendant que<br>ça dort.</div>
+          <div class="cap">2h du mat, troisième café. Le travail que personne ne voit, c'est celui qui compte.</div>
+        </div>
+        <div class="foot"><span class="time">02:00 AM</span><span class="lab">22 mar</span></div>
+      </div>
+      <figcaption><span class="num">07</span><span class="nm">Dans les coulisses</span><span class="cat">Storytelling</span></figcaption>
+    </figure>
+
+    <!-- 08 JOURNEE -->
+    <figure style="--i:7">
+      <div class="story" style="--tint:13,14,16;--glow:170,182,200;--gx:30%;--gy:78%">
+        <div class="brand">archive · daily</div>
+        <div class="center left" style="justify-content:center">
+          <div class="big two" style="font-size:12cqw">Une<br>journée</div>
+          <div class="kicker" style="margin-top:1cqw">dans ma vie de coach</div>
+          <div class="cap" style="margin-top:3cqw">06:00 — réveil &amp; sport<br>08:30 — deep work, zéro notif<br>13:00 — appels clients<br>19:00 — contenu du lendemain</div>
+        </div>
+        <div class="foot"><span class="lab">routine</span><span class="time">06:00 AM</span></div>
+      </div>
+      <figcaption><span class="num">08</span><span class="nm">Une journée</span><span class="cat">Coulisses</span></figcaption>
+    </figure>
+
+    <!-- 09 MERCI -->
+    <figure style="--i:8">
+      <div class="story" style="--tint:20,16,12;--glow:225,172,112;--gx:50%;--gy:72%">
+        <div class="brand">archive · @votre.compte</div>
+        <div class="center">
+          <div class="time">10:48 PM</div>
+          <div class="big">Merci</div>
+          <div class="cap">Pour votre confiance, vos messages, votre présence. On se retrouve très vite. ✷</div>
+        </div>
+        <div class="foot"><span class="lab">à bientôt</span><span class="lab">the end</span></div>
+      </div>
+      <figcaption><span class="num">09</span><span class="nm">Merci</span><span class="cat">Clôture</span></figcaption>
+    </figure>
+
+  </div>
+
+  <footer>
+    <span>Pack Canva Stories — Édition Nocturne · niche coachs business &amp; mindset</span>
+    <span>Gabarits éditables · textes &amp; @compte à personnaliser</span>
+  </footer>
+
+</div>
