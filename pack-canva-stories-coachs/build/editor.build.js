@@ -193,6 +193,7 @@ ${STORY_CSS}
 .btn{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:10px 14px;font:inherit;font-weight:600;font-size:14px;cursor:pointer}
 .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.4;cursor:default;transform:none}
 .editor{display:flex;gap:16px;align-items:flex-start;justify-content:center;flex-wrap:wrap}
 .rail{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px;box-shadow:0 1px 3px rgba(20,20,40,.05)}
 .rail .tool{width:46px;height:46px;border:1px solid transparent;border-radius:12px;background:#fff;color:#4a4a55;font-size:18px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center}
@@ -259,6 +260,10 @@ select.wide{width:100%}
       <select id="pick"></select>
       <button class="btn ghost" id="next">▶</button>
       <span id="counter"></span>
+    </div>
+    <div class="tgrp">
+      <button class="btn ghost" id="undoBtn" title="Annuler (Ctrl+Z)">↶</button>
+      <button class="btn ghost" id="redoBtn" title="Rétablir (Ctrl+Maj+Z)">↷</button>
     </div>
     <label>@ <input id="handle" type="text" value="@votre.compte" /></label>
     <label>Accent <input id="accent" type="color" value="#e0913f" /></label>
@@ -662,10 +667,10 @@ window.addEventListener('scroll', ()=>{ if(selEl) drawSel(); }, true);
 
 // ---- sauvegarde navigateur ----
 const LS='pack-stories-v1'; let saveT;
-function save(){ clearTimeout(saveT); saveT=setTimeout(()=>{ try{
-  const data={handle,accent,grainOn,stories:{}};
+function saveLS(){ try{ const data={handle,accent,grainOn,stories:{}};
   STORIES.forEach(s=>{ const f={}; for(const k in s.f){ if(k!=='_img') f[k]=s.f[k]; } data.stories[s.id]=f; });
-  localStorage.setItem(LS, JSON.stringify(data)); }catch(_){} }, 400); }
+  localStorage.setItem(LS, JSON.stringify(data)); }catch(_){} }
+function save(){ clearTimeout(saveT); saveT=setTimeout(()=>{ saveLS(); record(); }, 400); }
 function load(){ try{ const d=JSON.parse(localStorage.getItem(LS)||'null'); if(!d) return;
   if(d.handle){ handle=d.handle; id('handle').value=handle; }
   if(d.accent){ accent=d.accent; id('accent').value=accent; document.documentElement.style.setProperty('--acc',accent); }
@@ -674,8 +679,26 @@ function load(){ try{ const d=JSON.parse(localStorage.getItem(LS)||'null'); if(!
 }catch(_){} }
 id('wipe').onclick=()=>{ if(confirm('Effacer toutes tes modifications et revenir au pack d\\'origine ?')){ localStorage.removeItem(LS); location.reload(); } };
 
+// ---- annuler / rétablir ----
+const undoStack=[], redoStack=[]; let lastSnap='';
+function snapshot(){ return JSON.stringify({handle,accent,grainOn,st:STORIES.map(s=>s.f)}); }
+function record(){ const cur=snapshot(); if(cur===lastSnap) return; undoStack.push(lastSnap); if(undoStack.length>50)undoStack.shift(); redoStack.length=0; lastSnap=cur; updateUndo(); }
+function restore(json){ const d=JSON.parse(json); handle=d.handle; accent=d.accent; grainOn=d.grainOn;
+  id('handle').value=handle; id('accent').value=accent; document.documentElement.style.setProperty('--acc',accent);
+  d.st.forEach((f,i)=>{ if(STORIES[i]) STORIES[i].f=f; });
+  lastSnap=snapshot(); clearSel(); paint(); saveLS(); updateUndo(); }
+function undo(){ clearTimeout(saveT); record(); if(!undoStack.length) return; redoStack.push(lastSnap); restore(undoStack.pop()); }
+function redo(){ if(!redoStack.length) return; undoStack.push(lastSnap); restore(redoStack.pop()); }
+function updateUndo(){ id('undoBtn').disabled=!undoStack.length; id('redoBtn').disabled=!redoStack.length; }
+id('undoBtn').onclick=undo; id('redoBtn').onclick=redo;
+window.addEventListener('keydown', e=>{ if(!(e.ctrlKey||e.metaKey)) return; const k=e.key.toLowerCase();
+  const tg=e.target.tagName; const inField=(tg==='INPUT'||tg==='TEXTAREA'||e.target.isContentEditable);
+  if(k==='z'){ if(inField) return; e.preventDefault(); e.shiftKey?redo():undo(); }
+  else if(k==='y'){ if(inField) return; e.preventDefault(); redo(); } });
+
 load();
 paint();
+lastSnap=snapshot(); updateUndo();
 </script>`;
 
 const OUT = path.join(__dirname, "..", "exports", "editor.html");
