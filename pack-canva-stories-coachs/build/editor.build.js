@@ -231,6 +231,9 @@ select.wide{width:100%}
 .prow.acts button.on{background:var(--accsoft);border-color:var(--acc);color:var(--acc)}
 .phint{font-size:12px;color:var(--mut);line-height:1.55;padding:0 4px}
 .phint b{color:var(--ink)}
+#pTextFields{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
+.ptext{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 11px;font:inherit;font-size:14px;background:var(--soft);color:var(--ink);resize:vertical;line-height:1.35;min-height:40px}
+.ptext:focus{outline:none;border-color:var(--acc);background:#fff}
 #selbox{position:fixed;z-index:55;border:1.5px solid var(--acc);pointer-events:none;display:none;transform-origin:center center}
 #selbox.on{display:block}
 #selbox .hd{position:absolute;width:14px;height:14px;background:#fff;border:2px solid var(--acc);border-radius:4px;pointer-events:auto;transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(20,20,50,.3)}
@@ -272,15 +275,19 @@ select.wide{width:100%}
       <button class="tool" id="addText" title="Ajouter du texte">T</button>
       <button class="tool" id="addRect" title="Ajouter une bande / forme">▢</button>
       <button class="tool" id="addLine" title="Ajouter un trait">▁</button>
-      <button class="tool" id="railPhoto" title="Photo de fond">▦</button>
+      <button class="tool" id="addImg" title="Importer une image (logo, photo, sticker)">🖼</button>
+      <button class="tool" id="railPhoto" title="Photo en fond de la story">▦</button>
       <input id="imgfile" type="file" accept="image/*" hidden />
+      <input id="imgel" type="file" accept="image/*" hidden />
     </div>
 
     <div class="canvas"><div class="frame" id="frame"><div class="stage" id="stage"></div></div></div>
 
     <aside class="props">
       <div class="pcard off" id="pcardSel">
-        <div class="ptitle">Position &amp; taille</div>
+        <div class="ptitle" id="pContTitle">Contenu</div>
+        <div id="pTextFields"></div>
+        <div class="ptitle mt">Position &amp; taille</div>
         <div class="prow"><div class="pseg wide" id="segBlock"><button data-a="left" title="Aligner à gauche">⇤</button><button data-a="center" title="Centrer horizontalement">⋮</button><button data-a="right" title="Aligner à droite">⇥</button><button data-a="mid" title="Centrer verticalement">⋯</button></div></div>
         <div class="prow two"><div class="fld">X<input id="pX" type="number" /></div><div class="fld">Y<input id="pY" type="number" /></div></div>
         <div class="prow two"><div class="fld">Taille %<input id="pSizeN" type="number" /></div><div class="fld">Rotation °<input id="pRotN" type="number" /></div></div>
@@ -431,6 +438,7 @@ function renderExtras(st){ return (st.f._extra||[]).map((ex,i)=>{
   if(ex.kind==='text') return '<div class="ex-el" data-ex="'+i+'" contenteditable="false" data-k="_extra.'+i+'.text" style="'+pos+';width:'+ex.w+'px;font-family:'+(ex.font||"\\'Archivo Black\\',sans-serif")+';font-size:'+ex.size+'px;color:#fff;text-transform:uppercase;line-height:.9;letter-spacing:-.02em">'+nl(ex.text)+'</div>';
   if(ex.kind==='rect') return '<div class="ex-el" data-ex="'+i+'" style="'+pos+';width:'+ex.w+'px;height:'+ex.h+'px;background:'+ex.color+';border-radius:'+(ex.r||0)+'px"></div>';
   if(ex.kind==='line') return '<div class="ex-el" data-ex="'+i+'" style="'+pos+';width:'+ex.w+'px;height:'+ex.h+'px;background:'+ex.color+'"></div>';
+  if(ex.kind==='img') return '<img class="ex-el" data-ex="'+i+'" src="'+ex.src+'" style="'+pos+';width:'+ex.w+'px;height:auto;display:block" />';
   if(ex.kind==='html') return '<div class="ex-el" data-ex="'+i+'" style="top:0;left:0;transform:translate(40px,40px)">'+ex.html+'</div>';
   return ''; }).join(''); }
 function render(st){
@@ -486,9 +494,10 @@ imgdel.onclick=()=>{ delete STORIES[idx].f._img; paint(); };
 darkr.oninput=e=>{ STORIES[idx].f._dark=+e.target.value; applyBg(stage,STORIES[idx]); save(); };
 function refreshImg(){ const has=!!STORIES[idx].f._img; imgdel.style.display=has?'':'none'; darkgrp.style.display=has?'':'none';
   if(has) darkr.value=STORIES[idx].f._dark??0.65; }
-function resize(dataURL, cb){ const im=new Image(); im.onload=()=>{ const M=1280; let w=im.width,h=im.height;
+function resize(dataURL, cb, mime){ const im=new Image(); im.onload=()=>{ const M=1280; let w=im.width,h=im.height;
   const r=Math.min(1, M/Math.max(w,h)); w=Math.round(w*r); h=Math.round(h*r);
-  const c=document.createElement('canvas'); c.width=w; c.height=h; c.getContext('2d').drawImage(im,0,0,w,h); cb(c.toDataURL('image/jpeg',0.85)); }; im.src=dataURL; }
+  const c=document.createElement('canvas'); c.width=w; c.height=h; c.getContext('2d').drawImage(im,0,0,w,h);
+  cb(mime==='png'? c.toDataURL('image/png') : c.toDataURL('image/jpeg',0.85), {w:im.width,h:im.height}); }; im.src=dataURL; }
 
 // ---- export PNG ----
 function toPNG(st){ return new Promise((res,rej)=>{
@@ -534,7 +543,14 @@ function scaleNow(){ return (frame.clientWidth||460)/1080; }
 
 function clearSel(){ if(selEl) selEl.classList.remove('mv-sel'); selEl=null; selKey=null; selbox.classList.remove('on'); pcardSel.classList.add('off'); }
 function reselect(key){ const el=[...stage.children].find(c=>c.dataset.move===key); if(el) select(el); }
-function select(el){ if(selEl) selEl.classList.remove('mv-sel'); selEl=el; selKey=el.dataset.move; el.classList.add('mv-sel'); pcardSel.classList.remove('off'); syncProps(); drawSel(); }
+function select(el){ if(selEl) selEl.classList.remove('mv-sel'); selEl=el; selKey=el.dataset.move; el.classList.add('mv-sel'); pcardSel.classList.remove('off'); syncProps(); buildTextFields(); drawSel(); }
+function buildTextFields(){ const cont=id('pTextFields'); cont.innerHTML='';
+  const nodes = selEl.matches('[data-k]') ? [selEl] : [...selEl.querySelectorAll('[data-k]')];
+  id('pContTitle').style.display = nodes.length? '' : 'none'; cont.style.display = nodes.length? '' : 'none';
+  nodes.forEach(n=>{ const ta=document.createElement('textarea'); ta.className='ptext'; ta.rows=nodes.length>1?1:2;
+    ta.value = n.innerHTML.replace(/<br\\s*\\/?>/gi,'\\n').replace(/<[^>]+>/g,'');
+    ta.oninput=()=>{ n.innerHTML=esc(ta.value).replace(/\\n/g,'<br>'); n.dispatchEvent(new Event('input')); drawSel(); };
+    cont.appendChild(ta); }); }
 function drawSel(){ if(!selEl){ selbox.classList.remove('on'); return; }
   const a=(STORIES[idx].f._adj||{})[selKey]||{}; const s=scaleNow();
   const rect=selEl.getBoundingClientRect(); const cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
@@ -591,6 +607,9 @@ function addExtra(o){ const st=STORIES[idx]; st.f._extra=st.f._extra||[]; st.f._
 id('addText').onclick=()=>addExtra({kind:'text',x:120,y:820,w:840,size:96,text:'TON TEXTE'});
 id('addRect').onclick=()=>addExtra({kind:'rect',x:140,y:900,w:800,h:180,color:'rgba(224,145,63,.92)',r:0});
 id('addLine').onclick=()=>addExtra({kind:'line',x:140,y:960,w:520,h:6,color:'#ffffff'});
+id('addImg').onclick=()=>id('imgel').click();
+id('imgel').onchange=e=>{ const file=e.target.files[0]; if(!file) return; const isPng=/png/i.test(file.type); const fr=new FileReader();
+  fr.onload=()=>resize(fr.result, (url,dim)=>{ const w=Math.min(700, dim.w||600); addExtra({kind:'img',x:Math.round((1080-w)/2),y:780,w:w,src:url}); }, isPng?'png':undefined); fr.readAsDataURL(file); e.target.value=''; };
 id('railPhoto').onclick=()=>imgfile.click();
 // fond & grain
 id('bgcol').oninput=e=>{ STORIES[idx].f._bgcol=e.target.value; applyBg(stage,STORIES[idx]); save(); };
