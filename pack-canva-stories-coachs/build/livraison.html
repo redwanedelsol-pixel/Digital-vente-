@@ -1,0 +1,124 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<style>
+  @page{ size:A4; margin:0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-family:"Archivo","Helvetica Neue",Arial,sans-serif;color:#211f1b;background:#fff;line-height:1.55}
+  .page{width:210mm;min-height:297mm;padding:0 0 18mm;position:relative;page-break-after:always;overflow:hidden}
+  .page:last-child{page-break-after:auto}
+  .amber{color:#c47a2c}
+  .black{font-family:"Archivo Black",sans-serif}
+
+  /* hero band */
+  .hero{background:#14140f;color:#f3efe6;padding:24mm 18mm 20mm;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 80% -10%, rgba(224,161,84,.22), transparent 55%);pointer-events:none}
+  .eyebrow{font-size:9pt;letter-spacing:.32em;text-transform:uppercase;color:#e0a154;font-weight:700}
+  .hero h1{font-family:"Archivo Black",sans-serif;font-size:34pt;line-height:1;letter-spacing:-.02em;margin:6mm 0 4mm;text-transform:uppercase}
+  .hero p{font-size:11.5pt;color:#b9b2a2;max-width:135mm}
+  .hero .mark{position:absolute;right:16mm;top:20mm;font-size:9pt;letter-spacing:.2em;text-transform:uppercase;color:#6f695d}
+
+  .body{padding:14mm 18mm 0}
+  h2{font-size:10pt;letter-spacing:.2em;text-transform:uppercase;color:#c47a2c;font-weight:800;margin:9mm 0 3mm}
+  h2:first-child{margin-top:0}
+  p.lead{font-size:11pt;color:#4a463f;max-width:150mm}
+
+  .grid{display:flex;gap:6mm;margin-top:3mm;flex-wrap:wrap}
+  .cat{background:#faf8f4;border:0.3mm solid #e6e0d5;border-radius:3mm;padding:4mm 5mm;flex:1 1 45%;min-width:70mm}
+  .cat b{display:block;font-size:10.5pt;color:#211f1b}
+  .cat span{font-size:9pt;color:#7c766c}
+
+  ol.steps{list-style:none;counter-reset:s;margin-top:2mm}
+  ol.steps li{counter-increment:s;position:relative;padding:2.5mm 0 2.5mm 12mm;font-size:11pt;color:#2c2823;border-bottom:0.3mm solid #eee7db}
+  ol.steps li:last-child{border-bottom:0}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:2mm;width:8mm;height:8mm;background:#14140f;color:#e0a154;border-radius:50%;font-family:"Archivo Black",sans-serif;font-size:10pt;display:flex;align-items:center;justify-content:center}
+  ol.steps b{color:#211f1b}
+
+  .cta{display:block;margin:5mm 0 2mm;background:#c47a2c;color:#fff;text-decoration:none;border-radius:3mm;padding:6mm 7mm;text-align:center}
+  .cta .l{font-size:8.5pt;letter-spacing:.22em;text-transform:uppercase;opacity:.85}
+  .cta .u{font-family:"Archivo Black",sans-serif;font-size:12pt;word-break:break-all;margin-top:1.5mm}
+
+  .tips{margin-top:2mm}
+  .tips li{list-style:none;position:relative;padding:1.8mm 0 1.8mm 7mm;font-size:10.5pt;color:#2c2823}
+  .tips li::before{content:"";position:absolute;left:0;top:3.4mm;width:2.6mm;height:2.6mm;border-radius:.6mm;background:#c47a2c}
+
+  .license{background:#faf8f4;border:0.3mm solid #e6e0d5;border-radius:3mm;padding:5mm 6mm;margin-top:3mm;font-size:9.5pt;color:#4a463f}
+  .license b{color:#211f1b}
+  .license .row{display:flex;gap:4mm;padding:1.4mm 0}
+  .license .ok{color:#3f7d4f;font-weight:700}
+  .license .no{color:#b0533a;font-weight:700}
+
+  .foot{margin-top:8mm;padding-top:4mm;border-top:0.3mm solid #e6e0d5;font-size:9pt;color:#a9a296;display:flex;justify-content:space-between}
+</style></head>
+<body>
+
+<div class="page">
+  <div class="hero">
+    <div class="mark">Édition Nocturne</div>
+    <div class="eyebrow">Merci pour ton achat</div>
+    <h1>Bienvenue<br>dans le pack.</h1>
+    <p>30 stories Instagram au style « dark aesthetic », prêtes à publier. Change le texte, ta couleur, ajoute tes photos — et tu as un mois de contenu qui te démarque.</p>
+  </div>
+
+  <div class="body">
+    <h2>Ce que tu as reçu</h2>
+    <p class="lead">30 templates au format <b>1080 × 1920</b> (Instagram, TikTok, Reels), répartis en 8 catégories pour couvrir tout ton mois&nbsp;:</p>
+    <div class="grid">
+      <div class="cat"><b>Présentation</b><span>Bienvenue · Qui suis-je · Ma mission</span></div>
+      <div class="cat"><b>Citations &amp; mindset</b><span>Punchlines, rappels, motivation</span></div>
+      <div class="cat"><b>Conseils</b><span>« 3 erreurs », astuces, le saviez-vous</span></div>
+      <div class="cat"><b>Preuves sociales</b><span>Témoignages, résultats, avis</span></div>
+      <div class="cat"><b>Offres</b><span>Nouveau, compte à rebours, dernière chance</span></div>
+      <div class="cat"><b>Engagement</b><span>Sondage, quiz, « ton avis ? »</span></div>
+      <div class="cat"><b>Coulisses</b><span>Behind the scenes, une journée</span></div>
+      <div class="cat"><b>Clôture</b><span>Remerciements</span></div>
+    </div>
+
+    <h2>Comment les utiliser</h2>
+    <ol class="steps">
+      <li>Ouvre l'<b>éditeur en ligne</b> (lien ci-dessous) — rien à installer.</li>
+      <li>Choisis une story, <b>clique sur un texte</b> pour le modifier.</li>
+      <li>Mets <b>ta couleur</b>, ton <b>@compte</b>, glisse <b>tes photos</b> si tu veux.</li>
+      <li><b>Télécharge en PNG</b> et publie. C'est prêt 🎉</li>
+    </ol>
+
+    <a class="cta" href="https://claude.ai/code/artifact/793c981c-c218-496e-9119-c20c89a20e3f">
+      <span class="l">Ton éditeur — clique ou copie le lien</span>
+      <span class="u">claude.ai/code/artifact/793c981c-c218-496e-9119-c20c89a20e3f</span>
+    </a>
+    <p style="font-size:9pt;color:#7c766c;margin-top:2mm">Les 30 stories sont aussi fournies en images PNG dans ton dossier de téléchargement, prêtes à publier telles quelles.</p>
+  </div>
+</div>
+
+<div class="page">
+  <div class="body" style="padding-top:16mm">
+    <h2>Pour un rendu au top</h2>
+    <ul class="tips">
+      <li>Garde <b>une seule couleur d'accent</b> sur tout ton mois : c'est ça qui fait « marque ».</li>
+      <li>Remplace les fonds sombres par <b>tes propres photos</b> (bureau, portrait, ambiance) et baisse la luminosité pour garder le texte lisible.</li>
+      <li>Poste dans l'ordre des catégories : présentation → valeur → preuve → offre. Ça crée une vraie séquence.</li>
+      <li>Réutilise les stories « engagement » (sondage, quiz) pour <b>booster ton taux de réponse</b>.</li>
+    </ul>
+
+    <h2>Licence d'utilisation</h2>
+    <div class="license">
+      <div class="row"><span class="ok">OUI</span><span>Usage <b>personnel et professionnel</b> pour ta propre marque, autant de fois que tu veux.</span></div>
+      <div class="row"><span class="ok">OUI</span><span>Modifier les textes, couleurs, polices et photos librement.</span></div>
+      <div class="row"><span class="no">NON</span><span>Revendre, partager ou redistribuer les fichiers ou le lien de l'éditeur.</span></div>
+      <div class="row"><span class="no">NON</span><span>Revendre les stories « telles quelles » comme ton propre template.</span></div>
+    </div>
+
+    <h2>Un souci, une question ?</h2>
+    <p class="lead">Écris-moi, je réponds vite et avec plaisir. Et si le pack t'a servi, un <b>petit avis</b> m'aide énormément à continuer 💛</p>
+    <ul class="tips">
+      <li>Contact : <b>redwanedelsol@gmail.com</b></li>
+      <li>Instagram : <b>@ton.compte</b> <span style="color:#a9a296">(à remplacer par le tien)</span></li>
+    </ul>
+
+    <div class="foot">
+      <span>Pack 30 Stories — Édition Nocturne</span>
+      <span>Merci &amp; à très vite ✷</span>
+    </div>
+  </div>
+</div>
+
+</body></html>
