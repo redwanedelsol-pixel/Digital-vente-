@@ -72,6 +72,16 @@
 .modal img{max-width:min(90vw,380px);max-height:72vh;border-radius:10px;box-shadow:0 20px 50px -20px #000}
 .modal p{color:#fff;font-size:14px;text-align:center;max-width:420px;line-height:1.5}
 .modal .x{position:absolute;top:14px;right:18px;color:#fff;font-size:30px;cursor:pointer;background:none;border:0}
+.seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{background:transparent;color:var(--mut);border:0;padding:9px 12px;font:inherit;font-size:13px;cursor:pointer}
+.seg button.on{background:var(--acc);color:#160d02;font-weight:700}
+.stage.moving [data-move]{cursor:grab}
+.stage.moving [data-move]:active{cursor:grabbing}
+.mv-sel{outline:2px solid var(--acc)!important;outline-offset:3px}
+#mvbar{position:fixed;z-index:60;display:none;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:6px;box-shadow:0 10px 30px -12px #000}
+#mvbar.on{display:flex}
+#mvbar button{background:#0c0c0e;color:var(--ink);border:1px solid var(--line);border-radius:7px;min-width:40px;height:36px;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+#mvbar button:active{transform:translateY(1px)}
 </style>
 
 <div class="app">
@@ -85,6 +95,10 @@
       <button class="btn ghost" id="imgdel" style="display:none">✕</button>
     </div>
     <div class="grp" id="darkgrp" style="display:none">Assombrir <input id="dark" type="range" min="0.25" max="0.9" step="0.05" value="0.65" /></div>
+    <div class="grp">
+      <div class="seg" id="modeseg"><button data-m="text" class="on">✎ Texte</button><button data-m="move">✥ Déplacer</button></div>
+      <button class="btn ghost" id="resetall" title="Réinitialiser les positions de cette story">⟲ positions</button>
+    </div>
     <div class="nav">
       <button class="btn ghost" id="prev">◀</button>
       <select id="pick"></select>
@@ -99,8 +113,16 @@
       <button class="btn ghost" id="dlall">⬇ Télécharger les 30</button>
       <span class="count" id="counter"></span>
     </div>
-    <p class="hint">Clique sur <b>n'importe quel texte</b> pour le modifier. <b>Ajoute une photo</b> de fond (réglable avec « Assombrir » pour garder le texte lisible). Change ton <b>@compte</b> et la <b>couleur</b> en haut. <b>1080×1920</b>, prêt pour Insta / TikTok.</p>
+    <p class="hint"><b>✎ Texte</b> : clique sur un texte pour le modifier. <b>✥ Déplacer</b> : fais glisser chaque bloc où tu veux, puis <b>A− / A+</b> pour la taille, <b>⇤ / ≡</b> pour l'alignement, <b>⟲</b> pour annuler. Ajoute une <b>photo</b> de fond, change <b>@compte</b> et <b>couleur</b>. Export <b>1080×1920</b>.</p>
   </div>
+</div>
+
+<div id="mvbar">
+  <button id="mvminus" title="Réduire">A−</button>
+  <button id="mvplus" title="Agrandir">A+</button>
+  <button id="mvleft" title="Aligner à gauche">⇤</button>
+  <button id="mvcenter" title="Centrer">≡</button>
+  <button id="mvreset" title="Réinitialiser ce bloc">⟲</button>
 </div>
 
 <div class="modal" id="modal">
@@ -236,6 +258,8 @@ function paint(){
     el.addEventListener('input', ()=>{ st.f[el.dataset.k] = el.innerHTML.replace(/<br\s*\/?>/gi,'\\n').replace(/<[^>]+>/g,''); });
   });
   refreshImg();
+  applyAdj(stage, st);
+  clearSel(); applyMode();
   fit();
 }
 function fit(){ const w=Math.min(frame.parentElement.clientWidth,460); const s=w/1080;
@@ -266,6 +290,7 @@ function toPNG(st){ return new Promise((res,rej)=>{
   const off=document.createElement('div'); off.innerHTML='<div class="stage" xmlns="http://www.w3.org/1999/xhtml"></div>';
   const st2=off.firstChild; applyBg(st2,st); st2.style.width='1080px'; st2.style.height='1920px'; st2.style.transform='none';
   st2.innerHTML=render(st);
+  applyAdj(st2, st);
   const xml=new XMLSerializer().serializeToString(st2);
   const svg='<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920"><foreignObject x="0" y="0" width="1080" height="1920"><style>'+FONT_CSS+STORY_CSS+'</style>'+xml+'</foreignObject></svg>';
   const img=new Image(); img.onload=()=>{ const c=document.createElement('canvas'); c.width=1080; c.height=1920; c.getContext('2d').drawImage(img,0,0); c.toBlob(b=>res(b),'image/png'); };
@@ -276,6 +301,45 @@ const modal=document.getElementById('modal'), mimg=document.getElementById('mimg
 document.getElementById('mx').onclick=()=>modal.classList.remove('on');
 document.getElementById('dl').onclick=async()=>{ const st=STORIES[idx]; const b=await toPNG(st); saveBlob(b,st.id+'.png'); mimg.src=URL.createObjectURL(b); modal.classList.add('on'); };
 document.getElementById('dlall').onclick=async()=>{ for(const st of STORIES){ const b=await toPNG(st); saveBlob(b,st.id+'.png'); await new Promise(r=>setTimeout(r,300)); } };
+
+// ---- édition avancée : déplacer / redimensionner / aligner les blocs ----
+let moveMode=false, selEl=null, selKey=null;
+const mvbar=document.getElementById('mvbar');
+function movables(el){ return [...el.children].filter(c=>!c.classList.contains('photo') && !c.classList.contains('brk')); }
+function applyOne(el,a){ el.style.transform='translate('+(a.dx||0)+'px,'+(a.dy||0)+'px) scale('+(a.sc||1)+')'; el.style.transformOrigin='center center'; if(a.align) el.style.textAlign=a.align; }
+function applyAdj(el,st){ const adj=st.f._adj||{}; movables(el).forEach((c,i)=>{ c.dataset.move='m'+i; const a=adj['m'+i]; if(a) applyOne(c,a); }); }
+function getAdj(key){ const f=STORIES[idx].f; f._adj=f._adj||{}; return f._adj[key]=f._adj[key]||{dx:0,dy:0,sc:1,align:''}; }
+function scaleNow(){ return (frame.clientWidth||460)/1080; }
+function applyMode(){ stage.classList.toggle('moving',moveMode); stage.querySelectorAll('[contenteditable]').forEach(e=>e.contentEditable=(!moveMode).toString()); if(!moveMode) clearSel(); }
+function setMode(m){ moveMode=(m==='move'); document.querySelectorAll('#modeseg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m)); applyMode(); }
+document.querySelectorAll('#modeseg button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+document.getElementById('resetall').onclick=()=>{ delete STORIES[idx].f._adj; paint(); };
+
+function clearSel(){ if(selEl) selEl.classList.remove('mv-sel'); selEl=null; selKey=null; mvbar.classList.remove('on'); }
+function select(el){ if(selEl) selEl.classList.remove('mv-sel'); selEl=el; selKey=el.dataset.move; el.classList.add('mv-sel'); posBar(); }
+function posBar(){ if(!selEl) return; const r=selEl.getBoundingClientRect();
+  mvbar.style.left=Math.max(8,Math.min(window.innerWidth-240, r.left))+'px';
+  mvbar.style.top=Math.max(8, r.top-48)+'px'; mvbar.classList.add('on'); }
+
+stage.addEventListener('pointerdown', e=>{
+  if(!moveMode) return;
+  const el=e.target.closest('[data-move]');
+  if(!el || !stage.contains(el)){ clearSel(); return; }
+  select(el);
+  const a=getAdj(el.dataset.move), sx=e.clientX, sy=e.clientY, bx=a.dx||0, by=a.dy||0, sc=scaleNow();
+  try{ el.setPointerCapture(e.pointerId); }catch(_){}
+  function mv(ev){ a.dx=bx+(ev.clientX-sx)/sc; a.dy=by+(ev.clientY-sy)/sc; applyOne(el,a); posBar(); }
+  function up(){ stage.removeEventListener('pointermove',mv); window.removeEventListener('pointerup',up); }
+  stage.addEventListener('pointermove',mv); window.addEventListener('pointerup',up);
+  e.preventDefault();
+});
+document.getElementById('mvminus').onclick=()=>{ if(!selEl)return; const a=getAdj(selKey); a.sc=Math.max(0.3,(a.sc||1)-0.08); applyOne(selEl,a); posBar(); };
+document.getElementById('mvplus').onclick=()=>{ if(!selEl)return; const a=getAdj(selKey); a.sc=Math.min(3,(a.sc||1)+0.08); applyOne(selEl,a); posBar(); };
+document.getElementById('mvleft').onclick=()=>{ if(!selEl)return; const a=getAdj(selKey); a.align='left'; applyOne(selEl,a); };
+document.getElementById('mvcenter').onclick=()=>{ if(!selEl)return; const a=getAdj(selKey); a.align='center'; applyOne(selEl,a); };
+document.getElementById('mvreset').onclick=()=>{ if(!selEl)return; delete STORIES[idx].f._adj[selKey]; selEl.style.transform=''; selEl.style.textAlign=''; posBar(); };
+window.addEventListener('resize', ()=>{ if(selEl) posBar(); });
+window.addEventListener('scroll', ()=>{ if(selEl) posBar(); }, true);
 
 paint();
 </script>
