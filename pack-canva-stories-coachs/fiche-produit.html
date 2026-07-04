@@ -1,0 +1,285 @@
+<title>Kit de mise en vente — Pack 30 Stories</title>
+<style>
+  :root{
+    --bg:#f3f1ec; --card:#fbfaf7; --ink:#211f1b; --mut:#7c766c; --faint:#a9a296;
+    --line:#e2ddd3; --amber:#c47a2c; --amber-soft:#f0e2cf;
+    --night:#14140f; --night-ink:#f3efe6; --night-mut:#9c9683; --night-line:#2c2b24;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --bg:#131210; --card:#1b1a16; --ink:#f0ece3; --mut:#a49d8f; --faint:#6f695d;
+      --line:#2c2a24; --amber:#e0a154; --amber-soft:#3a2f1e; }
+  }
+  :root[data-theme="light"]{ --bg:#f3f1ec; --card:#fbfaf7; --ink:#211f1b; --mut:#7c766c; --faint:#a9a296; --line:#e2ddd3; --amber:#c47a2c; --amber-soft:#f0e2cf; }
+  :root[data-theme="dark"]{ --bg:#131210; --card:#1b1a16; --ink:#f0ece3; --mut:#a49d8f; --faint:#6f695d; --line:#2c2a24; --amber:#e0a154; --amber-soft:#3a2f1e; }
+
+  *{box-sizing:border-box}
+  body{margin:0}
+  .wrap{
+    background:var(--bg); color:var(--ink);
+    font-family:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6;
+    padding:clamp(28px,6vw,72px) clamp(18px,5vw,40px) 100px;
+  }
+  .doc{max-width:760px;margin:0 auto}
+
+  .eyebrow{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--amber)}
+  h1{font-size:clamp(34px,6.5vw,58px);line-height:1.02;letter-spacing:-.03em;font-weight:800;text-wrap:balance;margin:.34em 0 .28em}
+  .lede{font-size:clamp(16px,1.7vw,18px);color:var(--mut);max-width:60ch;margin:0}
+  .lede b{color:var(--ink);font-weight:600}
+
+  h2{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);font-weight:800;margin:0 0 2px}
+  section{margin-top:clamp(40px,7vw,68px);border-top:1px solid var(--line);padding-top:clamp(22px,3vw,32px)}
+  section > .sub{color:var(--mut);font-size:14.5px;margin:6px 0 22px;max-width:58ch}
+  h3{font-size:20px;letter-spacing:-.01em;font-weight:700;margin:26px 0 4px}
+  .field-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:22px 0 8px}
+
+  /* paste blocks — dark "nuit", echoing the product */
+  .block{position:relative;background:var(--night);border:1px solid var(--night-line);border-radius:14px;overflow:hidden;margin-top:8px}
+  .block pre{margin:0;padding:18px 18px 18px;color:var(--night-ink);font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.62;white-space:pre-wrap;word-break:break-word;max-height:none}
+  .block.short pre{white-space:pre-wrap}
+  .copy{position:absolute;top:10px;right:10px;z-index:2;border:1px solid var(--night-line);background:#211f18;color:var(--night-ink);border-radius:8px;padding:7px 12px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:.02em}
+  .copy:hover{border-color:var(--amber)}
+  .copy.done{color:#0e0d09;background:var(--amber);border-color:var(--amber)}
+  .copy:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .tag{background:var(--amber-soft);color:var(--amber);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:600;letter-spacing:.01em}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .cardlet{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .cardlet .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  .cardlet .v{font-size:15px;margin-top:6px;color:var(--ink)}
+  .cardlet .v b{color:var(--amber)}
+
+  table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14.5px}
+  .tablewrap{overflow-x:auto}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  td b{color:var(--ink)}
+  td .price{font-weight:800;color:var(--amber);font-variant-numeric:tabular-nums}
+
+  ul.clean{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:10px}
+  ul.clean li{position:relative;padding-left:26px;color:var(--ink);font-size:15px}
+  ul.clean li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--amber)}
+  ul.clean li small{display:block;color:var(--mut);font-size:13px;margin-top:2px}
+
+  .checklist{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:9px}
+  .checklist li{display:flex;gap:11px;align-items:flex-start;font-size:15px;color:var(--ink)}
+  .checklist li::before{content:"☐";color:var(--amber);font-size:16px;line-height:1.4}
+
+  .note{background:var(--amber-soft);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--ink);margin-top:18px}
+  .note b{color:var(--amber)}
+
+  .toggle{position:fixed;top:14px;right:14px;z-index:9;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+  footer{margin-top:56px;color:var(--faint);font-size:12.5px;text-align:center}
+
+  @media (prefers-reduced-motion:no-preference){
+    section,h1,.lede{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+    @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  }
+</style>
+
+<button class="toggle" id="themeToggle">◐ Thème</button>
+
+<div class="wrap">
+  <div class="doc">
+
+    <div class="eyebrow">Kit de mise en vente · Étape finale</div>
+    <h1>Ta fiche produit, prête à coller.</h1>
+    <p class="lede">Tout le texte pour lancer <b>« Pack 30 Stories — Édition Nocturne »</b> sur Etsy et Gumroad. Chaque bloc a un bouton <b>Copier</b> : tu colles directement dans ta boutique.</p>
+
+    <section>
+      <h2>Prix conseillé</h2>
+      <p class="sub">Démarre bas pour décrocher tes premiers avis — c'est ce qui fait vendre ensuite. Tu montes le prix une fois 5 à 10 avis obtenus.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Canal</th><th>Lancement</th><th>Prix normal</th><th>Valeur barrée</th></tr></thead>
+          <tbody>
+            <tr><td><b>Etsy</b></td><td><span class="price">9 €</span></td><td>14–17 €</td><td>~29 €</td></tr>
+            <tr><td><b>Gumroad</b></td><td><span class="price">12 €</span></td><td>17 €</td><td>~29 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Etsy</h2>
+      <p class="sub">Catégorie : Modèles → Réseaux sociaux · Téléchargement instantané · Compatible Canva gratuit.</p>
+
+      <div class="field-label">Titre — ≤ 140 caractères, mots-clés en premier</div>
+      <div class="block short">
+        <button class="copy">Copier</button>
+        <pre>Pack 30 Stories Instagram Coach | Templates Canva Story Dark Aesthetic | Business &amp; Mindset | Modèles Modifiables Réseaux Sociaux</pre>
+      </div>
+
+      <div class="field-label">Les 13 tags — ≤ 20 caractères chacun</div>
+      <div class="tags">
+        <span class="tag">stories instagram</span><span class="tag">template canva</span><span class="tag">story coach</span><span class="tag">pack stories</span><span class="tag">dark aesthetic</span><span class="tag">coach business</span><span class="tag">template story</span><span class="tag">mindset coach</span><span class="tag">reseaux sociaux</span><span class="tag">instagram story</span><span class="tag">modele canva</span><span class="tag">story template</span><span class="tag">solopreneur</span>
+      </div>
+      <div class="block short" style="margin-top:12px">
+        <button class="copy">Copier les tags</button>
+        <pre>stories instagram, template canva, story coach, pack stories, dark aesthetic, coach business, template story, mindset coach, reseaux sociaux, instagram story, modele canva, story template, solopreneur</pre>
+      </div>
+
+      <div class="field-label">Description</div>
+      <div class="block">
+        <button class="copy">Copier</button>
+        <pre>✨ PACK 30 STORIES INSTAGRAM — ÉDITION NOCTURNE ✨
+Des stories prêtes à l'emploi, au style « dark aesthetic » élégant, pensées pour les coachs, consultants et solopreneurs qui veulent un feed pro sans y passer des heures.
+
+Arrête de fixer une page blanche : tu changes le texte, tu publies. C'est tout.
+
+━━━━━━━━━━━━━━━━━━━━
+🌙 CE QUE TU REÇOIS
+━━━━━━━━━━━━━━━━━━━━
+• 30 templates de stories (1080 × 1920 px)
+• 8 catégories qui couvrent tout ton mois de contenu :
+   – Bienvenue / présentation
+   – Citations &amp; mindset
+   – Conseils &amp; astuces (« 3 erreurs », « le saviez-vous »)
+   – Témoignages &amp; preuves sociales
+   – Offres &amp; lancements (nouveau, compte à rebours, dernière chance)
+   – Engagement (sondage, quiz, « ton avis ? »)
+   – Coulisses &amp; storytelling
+   – Remerciements / clôture
+• Textes déjà rédigés (à personnaliser) + emplacements pour tes photos
+• 100 % modifiable : couleurs, textes, polices, ton @, ta photo
+
+━━━━━━━━━━━━━━━━━━━━
+💡 POURQUOI TU VAS ADORER
+━━━━━━━━━━━━━━━━━━━━
+✓ Un style cohérent et premium qui te démarque
+✓ Un mois de contenu réglé en quelques minutes
+✓ Facile à adapter à TA marque (couleur d'accent en 1 clic)
+✓ Parfait pour Instagram ET TikTok / Reels
+
+━━━━━━━━━━━━━━━━━━━━
+📥 COMMENT ÇA MARCHE
+━━━━━━━━━━━━━━━━━━━━
+1. Achète → tu reçois ton lien d'accès (téléchargement instantané)
+2. Ouvre le modèle (Canva gratuit suffit)
+3. Change les textes, ta couleur, ajoute tes photos
+4. Télécharge et publie 🎉
+
+━━━━━━━━━━━━━━━━━━━━
+❓ FAQ
+━━━━━━━━━━━━━━━━━━━━
+• Besoin de Canva Pro ? Non, la version gratuite suffit.
+• C'est pour qui ? Coachs, consultants, solopreneurs, créateurs.
+• Je peux changer les couleurs ? Oui, tout est personnalisable.
+• Format ? 1080 × 1920 px (stories Insta / TikTok / Reels).
+
+━━━━━━━━━━━━━━━━━━━━
+⚠️ INFOS
+━━━━━━━━━━━━━━━━━━━━
+• Produit 100 % numérique — aucun objet physique envoyé.
+• Usage personnel &amp; professionnel pour TA marque.
+• Revente ou partage du fichier interdits.
+• Les photos de présentation sont des exemples (non incluses).
+
+Une question avant d'acheter ? Écris-moi, je réponds vite 💌</pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Gumroad</h2>
+      <p class="sub">Active le « payez ce que vous voulez » (minimum 9 €) au lancement, et l'e-mail de remerciement automatique.</p>
+
+      <div class="field-label">Nom du produit</div>
+      <div class="block short">
+        <button class="copy">Copier</button>
+        <pre>30 Stories Instagram pour Coachs — Édition Nocturne (Templates modifiables)</pre>
+      </div>
+
+      <div class="field-label">Accroche</div>
+      <div class="block short">
+        <button class="copy">Copier</button>
+        <pre>Un mois de stories « dark aesthetic » prêtes à publier. Tu changes le texte, tu publies.</pre>
+      </div>
+
+      <div class="field-label">Description</div>
+      <div class="block">
+        <button class="copy">Copier</button>
+        <pre>Tu es coach ou solopreneur et tu galères à alimenter tes stories ?
+Ce pack te donne 30 templates au style sombre et premium, déjà rédigés et prêts à personnaliser.
+
+CE QUE TU REÇOIS
+• 30 stories 1080×1920 (Instagram / TikTok / Reels)
+• 8 catégories : présentation, citations, conseils, témoignages, offres, engagement, coulisses, remerciements
+• Textes inclus + 100 % modifiable (couleurs, polices, ton @, tes photos)
+
+POURQUOI
+✓ Un feed cohérent et pro, sans compétence en design
+✓ Un mois de contenu réglé en minutes
+✓ Adaptable à ta marque en 1 clic (couleur d'accent)
+
+Produit numérique : accès immédiat après achat.
+Usage pro pour ta marque. Revente interdite.</pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Visuels de la galerie</h2>
+      <p class="sub">L'ordre qui convertit le mieux (Etsy autorise 10 images).</p>
+      <ul class="clean">
+        <li>Image de couverture — grille 3×3 des plus belles stories + titre « 30 Stories · Édition Nocturne ».</li>
+        <li>Zoom sur 3–4 stories phares<small>offre, citation, témoignage.</small></li>
+        <li>Mockup téléphone<small>une story affichée dans une vraie story Instagram — gros impact sur le taux de clic.</small></li>
+        <li>Les 8 catégories en un visuel texte.</li>
+        <li>« Comment ça marche » en 3 étapes.</li>
+        <li>Carrousel de personnalisation<small>montre le changement de couleur d'accent.</small></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Trafic gratuit</h2>
+      <div class="grid">
+        <div class="cardlet"><div class="k">Pinterest — n°1</div><div class="v">1 épingle par catégorie + 1 « pack complet », lien vers la fiche. <b>Le canal gratuit le plus rentable.</b></div></div>
+        <div class="cardlet"><div class="k">Instagram</div><div class="v">Utilise le pack sur ton compte → « template utilisé pour cette story », lien en bio.</div></div>
+        <div class="cardlet"><div class="k">TikTok</div><div class="v">« Je te montre comment j'ai fait 30 stories en 10 min. »</div></div>
+        <div class="cardlet"><div class="k">Mots-clés partout</div><div class="v">stories coach · template story · dark aesthetic · contenu instagram coach · mindset</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Avant de publier</h2>
+      <ul class="checklist">
+        <li>Fichier de livraison prêt (modèle Canva partagé en « lien modèle », ou dossier des 30 PNG + un PDF avec le lien).</li>
+        <li>6 à 10 visuels de galerie, dont 2 mockups téléphone.</li>
+        <li>Titre + tags + description collés.</li>
+        <li>Prix de lancement activé (9 €).</li>
+        <li>Politique boutique claire : produit numérique, pas de remboursement.</li>
+        <li>1 première épingle Pinterest programmée.</li>
+      </ul>
+      <div class="note"><b>Livraison :</b> le plus vendeur pour cette niche = un <b>lien de modèle Canva</b> (le client clique, obtient sa copie modifiable). En attendant, tu peux livrer le <b>dossier des 30 PNG</b> + un PDF « merci » contenant le lien de ton éditeur.</div>
+    </section>
+
+    <footer>Pack 30 Stories — Édition Nocturne · kit de mise en vente</footer>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pre = btn.parentElement.querySelector('pre');
+      var text = pre.textContent;
+      navigator.clipboard.writeText(text).then(function(){
+        var old = btn.textContent; btn.textContent = 'Copié ✓'; btn.classList.add('done');
+        setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1600);
+      }).catch(function(){
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      });
+    });
+  });
+  (function(){
+    var t = document.getElementById('themeToggle');
+    t.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme');
+      var next = cur === 'dark' ? 'light' : (cur === 'light' ? 'dark' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+      document.documentElement.setAttribute('data-theme', next);
+    });
+  })();
+</script>
