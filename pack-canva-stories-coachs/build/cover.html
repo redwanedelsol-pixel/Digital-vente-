@@ -1,0 +1,63 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:2000px;height:2000px;overflow:hidden}
+  .cover{position:relative;width:2000px;height:2000px;background:#0b0b0d;overflow:hidden;font-family:"Archivo",sans-serif}
+  /* fond : grille 3x3 des stories, recadrées */
+  .grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr)}
+  .grid .c{background-size:cover;background-position:center 42%}
+  /* voile sombre + halo ambré + vignette */
+  .veil{position:absolute;inset:0;background:
+     radial-gradient(120% 90% at 50% 30%, rgba(224,145,63,.18), transparent 55%),
+     linear-gradient(180deg, rgba(9,9,11,.72), rgba(9,9,11,.60) 40%, rgba(9,9,11,.88));}
+  .vig{position:absolute;inset:0;background:radial-gradient(130% 100% at 50% 45%, transparent 48%, rgba(0,0,0,.6));}
+  .grain{position:absolute;inset:0;mix-blend-mode:soft-light;opacity:.4;
+     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  /* cadre fin */
+  .frame{position:absolute;inset:70px;border:2px solid rgba(255,255,255,.22);border-radius:26px;pointer-events:none}
+  .brk{position:absolute;width:70px;height:70px;border:3px solid #e0913f}
+  .brk.tl{top:120px;left:120px;border-right:0;border-bottom:0}
+  .brk.tr{top:120px;right:120px;border-left:0;border-bottom:0}
+  .brk.bl{bottom:120px;left:120px;border-right:0;border-top:0}
+  .brk.br{bottom:120px;right:120px;border-left:0;border-top:0}
+
+  .content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 180px}
+  .eyebrow{font-size:34px;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:700}
+  .eyebrow b{color:#e0913f}
+  .huge{font-family:"Archivo Black",sans-serif;font-size:300px;line-height:.9;letter-spacing:-.03em;text-transform:uppercase;margin:26px 0 4px;text-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .script{font-family:"Dancing Script",cursive;font-weight:600;font-size:150px;color:#e0913f;margin-top:-8px;line-height:1}
+  .sub{font-size:44px;color:rgba(255,255,255,.9);font-weight:600;margin-top:34px;letter-spacing:.01em}
+  .sub b{color:#fff}
+  .pill{margin-top:40px;display:inline-flex;align-items:center;gap:18px;border:2px solid rgba(224,145,63,.6);border-radius:999px;padding:20px 40px;font-size:32px;letter-spacing:.14em;text-transform:uppercase;color:#e0913f;font-weight:700}
+  .pill i{width:16px;height:16px;border-radius:50%;background:#e0913f;display:block}
+  .count{position:absolute;top:150px;left:0;right:0;text-align:center;font-family:"Archivo Black",sans-serif;font-size:0}
+</style></head>
+<body>
+<div class="cover">
+  <div class="grid">
+    <div class="c" style="background-image:url('file:///home/user/Digital-vente-/pack-canva-stories-coachs/exports/02-mindset.png')"></div>
+    <div class="c" style="background-image:url('file:///home/user/Digital-vente-/pack-canva-stories-coachs/exports/07-offre.png')"></div>
+    <div class="c" style="background-image:url('file:///home/user/Digital-vente-/pack-canva-stories-coachs/exports/05-dimanche.png')"></div>
+    <div class="c" style="background-image:url('file:///home/user/Digital-vente-/pack-canva-stories-coachs/exports/15-3-erreurs.png')"></div>
+    <div class="c" style="background-image:url('file:///home/user/Digital-vente-/pack-canva-stories-coachs/exports/01-bienvenue.png')"></div>
+    <div class="c" style="background-image:url('file:///home/user/Digital-vente-/pack-canva-stories-coachs/exports/26-quiz.png')"></div>
+    <div class="c" style="background-image:url('file:///home/user/Digital-vente-/pack-canva-stories-coachs/exports/28-coulisses.png')"></div>
+    <div class="c" style="background-image:url('file:///home/user/Digital-vente-/pack-canva-stories-coachs/exports/06-temoignage.png')"></div>
+    <div class="c" style="background-image:url('file:///home/user/Digital-vente-/pack-canva-stories-coachs/exports/22-countdown.png')"></div>
+  </div>
+  <div class="veil"></div>
+  <div class="vig"></div>
+  <div class="grain"></div>
+  <div class="scrim" style="position:absolute;inset:0;background:radial-gradient(46% 40% at 50% 51%, rgba(6,6,9,.78), rgba(6,6,9,.35) 62%, transparent 78%)"></div>
+  <div class="frame"></div>
+  <div class="brk tl"></div><div class="brk tr"></div><div class="brk bl"></div><div class="brk br"></div>
+
+  <div class="content">
+    <div class="eyebrow">pack complet · <b>30 modèles modifiables</b></div>
+    <div class="huge">30 Stories</div>
+    <div class="script">Édition Nocturne</div>
+    <div class="sub">Instagram pour <b>coachs &amp; solopreneurs</b></div>
+    <div class="pill"><i></i> prêtes à personnaliser</div>
+  </div>
+</div>
+</body></html>
