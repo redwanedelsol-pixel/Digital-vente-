@@ -1,0 +1,207 @@
+<title>Kit de vente — Pack 3 Templates SaaS (Yuzio)</title>
+<style>
+  :root{
+    --bg:#f3f4f7; --card:#ffffff; --ink:#191a20; --mut:#666a78; --faint:#9a9daa;
+    --line:#e6e7ee; --brand:#2fa651; --brand-hi:#42D367; --brand-soft:#e2f7e9;
+    --night:#0d0f14; --night-ink:#eef0f5; --night-line:#232733;
+  }
+  @media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a20;--ink:#eceef3;--mut:#9aa0b0;--faint:#5f6472;--line:#252a33;--brand:#42D367;--brand-soft:#16311f;}}
+  :root[data-theme="light"]{--bg:#f3f4f7;--card:#fff;--ink:#191a20;--mut:#666a78;--faint:#9a9daa;--line:#e6e7ee;--brand:#2fa651;--brand-soft:#e2f7e9}
+  :root[data-theme="dark"]{--bg:#0f1115;--card:#171a20;--ink:#eceef3;--mut:#9aa0b0;--faint:#5f6472;--line:#252a33;--brand:#42D367;--brand-soft:#16311f}
+  *{box-sizing:border-box}body{margin:0}
+  .wrap{background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;line-height:1.6;padding:clamp(28px,6vw,72px) clamp(18px,5vw,40px) 100px}
+  .doc{max-width:780px;margin:0 auto}
+  .eyebrow{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--brand)}
+  h1{font-size:clamp(32px,6vw,54px);line-height:1.03;letter-spacing:-.03em;font-weight:800;margin:.34em 0 .3em;text-wrap:balance}
+  .lede{font-size:clamp(16px,1.6vw,18px);color:var(--mut);max-width:62ch}
+  .lede b{color:var(--ink)}
+  h2{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--brand);font-weight:800;margin:0 0 2px}
+  section{margin-top:clamp(40px,7vw,64px);border-top:1px solid var(--line);padding-top:28px}
+  section>.sub{color:var(--mut);font-size:14.5px;margin:6px 0 22px;max-width:60ch}
+  .field-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:22px 0 8px}
+  .block{position:relative;background:var(--night);border:1px solid var(--night-line);border-radius:14px;overflow:hidden;margin-top:8px}
+  .block pre{margin:0;padding:18px;color:var(--night-ink);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.62;white-space:pre-wrap;word-break:break-word}
+  .copy{position:absolute;top:10px;right:10px;border:1px solid var(--night-line);background:#1b1f28;color:var(--night-ink);border-radius:8px;padding:7px 12px;font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+  .copy:hover{border-color:var(--brand)} .copy.done{background:var(--brand);color:#04120a;border-color:var(--brand)}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .tag{background:var(--brand-soft);color:var(--brand);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:600}
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14.5px}.tablewrap{overflow-x:auto}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  td b{color:var(--ink)} td .price{font-weight:800;color:var(--brand);font-variant-numeric:tabular-nums}
+  ul.clean{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:10px}
+  ul.clean li{position:relative;padding-left:26px;font-size:15px}
+  ul.clean li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--brand)}
+  ul.clean li small{display:block;color:var(--mut);font-size:13px;margin-top:2px}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  .cardlet{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .cardlet .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  .cardlet .v{font-size:14.5px;margin-top:6px}.cardlet .v b{color:var(--brand)}
+  .checklist{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:9px}
+  .checklist li{display:flex;gap:11px;align-items:flex-start;font-size:15px}.checklist li::before{content:"☐";color:var(--brand);font-size:16px}
+  .note{background:var(--brand-soft);border-radius:12px;padding:14px 16px;font-size:14px;margin-top:18px}.note b{color:var(--brand)}
+  .toggle{position:fixed;top:14px;right:14px;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;z-index:9}
+  footer{margin-top:56px;color:var(--faint);font-size:12.5px;text-align:center}
+</style>
+
+<button class="toggle" id="tg">◐ Thème</button>
+<div class="wrap"><div class="doc">
+
+  <div class="eyebrow">Yuzio · Kit de vente</div>
+  <h1>Pack 3 Templates SaaS — prêt à vendre.</h1>
+  <p class="lede">Tout pour lancer le <b>« Pack 3 Landing SaaS »</b> (Orbit · Nimbus · Petal) sur Etsy &amp; Gumroad. Titre, tags, description, prix — chaque bloc a un bouton <b>Copier</b>.</p>
+
+  <section>
+    <h2>Prix conseillé</h2>
+    <p class="sub">Les templates de sites web se vendent plus cher que les packs de stories. Démarre en promo pour les premiers avis, puis remonte.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Canal</th><th>Lancement</th><th>Prix normal</th><th>Valeur barrée</th></tr></thead>
+      <tbody>
+        <tr><td><b>Etsy</b></td><td><span class="price">19 €</span></td><td>29–34 €</td><td>~59 €</td></tr>
+        <tr><td><b>Gumroad</b></td><td><span class="price">24 €</span></td><td>39 €</td><td>~59 €</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><b>Astuce :</b> propose aussi les templates <b>à l'unité (12–15 €)</b> — beaucoup achètent 1 design, puis reviennent pour le pack.</div>
+  </section>
+
+  <section>
+    <h2>Ce que contient le pack</h2>
+    <div class="grid">
+      <div class="cardlet"><div class="k">Orbit</div><div class="v">SaaS B2B, <b>light indigo</b> — hero + bento + pricing</div></div>
+      <div class="cardlet"><div class="k">Nimbus</div><div class="v">Dev-tool, <b>dark citron</b> — hero centré + features</div></div>
+      <div class="cardlet"><div class="k">Petal</div><div class="v">App grand public, <b>serif corail</b> — app card + avis</div></div>
+    </div>
+    <ul class="clean" style="margin-top:18px">
+      <li>3 landing pages complètes en <b>HTML + CSS</b> (1 fichier chacune, aucune dépendance)</li>
+      <li><b>100 % responsive</b> — testé desktop, tablette, mobile</li>
+      <li>Sections : nav, hero, features, stats, pricing, témoignages, CTA, footer</li>
+      <li>Code propre &amp; commenté, <b>facile à modifier</b> (textes, couleurs, liens)</li>
+      <li>Hébergeable partout (Netlify, Vercel, OVH, o2switch…)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Etsy</h2>
+    <p class="sub">Catégorie : Modèles → Web · Téléchargement instantané.</p>
+    <div class="field-label">Titre (≤ 140 caractères)</div>
+    <div class="block"><button class="copy">Copier</button><pre>Pack 3 Templates Landing Page SaaS | HTML CSS Responsive | Site Web Startup Tech | Code Propre &amp; Modifiable | Téléchargement Instantané</pre></div>
+
+    <div class="field-label">Les 13 tags (≤ 20 caractères)</div>
+    <div class="tags">
+      <span class="tag">html template</span><span class="tag">landing page</span><span class="tag">saas template</span><span class="tag">site web</span><span class="tag">template startup</span><span class="tag">web template</span><span class="tag">responsive</span><span class="tag">html css</span><span class="tag">page html</span><span class="tag">template site</span><span class="tag">tech landing</span><span class="tag">code template</span><span class="tag">startup website</span>
+    </div>
+    <div class="block" style="margin-top:12px"><button class="copy">Copier les tags</button><pre>html template, landing page, saas template, site web, template startup, web template, responsive, html css, page html, template site, tech landing, code template, startup website</pre></div>
+
+    <div class="field-label">Description</div>
+    <div class="block"><button class="copy">Copier</button><pre>🚀 PACK 3 TEMPLATES LANDING PAGE SAAS — HTML / CSS
+Trois pages d'accueil modernes, responsives et prêtes à personnaliser. Parfaites pour une startup, une app, un SaaS, un outil ou un side-project qui veut un site pro sans partir de zéro.
+
+━━━━━━━━━━━━━━━━━━━━
+📦 CE QUE TU REÇOIS
+━━━━━━━━━━━━━━━━━━━━
+• 3 templates au style totalement différent :
+   – ORBIT — SaaS B2B, clair &amp; épuré (accent indigo)
+   – NIMBUS — outil dev, dark &amp; techno (accent citron)
+   – PETAL — app grand public, chaleureux (typo serif)
+• HTML + CSS, 1 fichier par template, zéro dépendance
+• 100 % responsive (desktop / tablette / mobile)
+• Sections complètes : nav, hero, features, pricing, témoignages, CTA, footer
+• Code propre et facile à éditer (textes, couleurs, liens)
+
+━━━━━━━━━━━━━━━━━━━━
+💡 POURQUOI CE PACK
+━━━━━━━━━━━━━━━━━━━━
+✓ Un site en ligne en quelques minutes, pas en semaines
+✓ 3 ambiances pour tout type de produit
+✓ Aucun builder, aucun abonnement — c'est TON fichier
+✓ Rapide &amp; léger (bon pour le SEO)
+
+━━━━━━━━━━━━━━━━━━━━
+🛠️ COMMENT L'UTILISER
+━━━━━━━━━━━━━━━━━━━━
+1. Ouvre le fichier .html dans ton navigateur ou un éditeur (VS Code…)
+2. Change les textes, couleurs et liens (tout est indiqué)
+3. Ajoute ton logo et tes visuels
+4. Mets en ligne (Netlify, Vercel, ton hébergeur…) — gratuit possible
+
+━━━━━━━━━━━━━━━━━━━━
+❓ FAQ
+━━━━━━━━━━━━━━━━━━━━
+• Faut-il savoir coder ? Non pour modifier les textes/couleurs. Des bases HTML aident pour aller plus loin.
+• C'est un thème WordPress ? Non — HTML/CSS pur, utilisable partout.
+• Livraison ? Fichiers .html à télécharger, instantané.
+
+━━━━━━━━━━━━━━━━━━━━
+⚠️ INFOS
+━━━━━━━━━━━━━━━━━━━━
+• Produit 100 % numérique — rien n'est expédié.
+• Usage perso &amp; commercial pour tes propres projets/clients.
+• Revente ou redistribution des fichiers interdite.
+• Le contenu de démo (logos, textes) est un exemple à remplacer.
+
+Une question ? Écris-moi 💌</pre></div>
+  </section>
+
+  <section>
+    <h2>Gumroad</h2>
+    <div class="field-label">Nom du produit</div>
+    <div class="block"><button class="copy">Copier</button><pre>3 Templates Landing Page SaaS — HTML/CSS responsive (Orbit · Nimbus · Petal)</pre></div>
+    <div class="field-label">Accroche</div>
+    <div class="block"><button class="copy">Copier</button><pre>Trois landing pages SaaS modernes, responsives, prêtes à personnaliser. Ton site pro en ligne aujourd'hui.</pre></div>
+    <div class="field-label">Description</div>
+    <div class="block"><button class="copy">Copier</button><pre>Un pack de 3 pages d'accueil SaaS en HTML/CSS, chacune avec un style unique (B2B clair, dev-tool dark, app grand public).
+
+INCLUS
+• 3 templates .html responsives, sans dépendance
+• Sections complètes (hero, features, pricing, témoignages, CTA…)
+• Code propre &amp; commenté, facile à éditer
+• Hébergeable partout (Netlify, Vercel, etc.)
+
+Produit numérique — accès immédiat. Usage perso &amp; commercial. Revente interdite.</pre></div>
+    <p class="sub" style="margin-top:16px">Réglages Gumroad : prix 24 € (lancement) → 39 €, produit digital, ratings activés. Option « + templates à l'unité » en up-sell.</p>
+  </section>
+
+  <section>
+    <h2>Visuels de la galerie</h2>
+    <ul class="clean">
+      <li>Couverture « 3 Landing SaaS » (fournie) en image principale.</li>
+      <li>Un <b>zoom plein écran</b> de chaque template (Orbit, Nimbus, Petal).</li>
+      <li>Une image <b>« responsive »</b> : desktop + mobile côte à côte.</li>
+      <li>Un visuel <b>« ce qui est inclus »</b> (liste des sections).</li>
+      <li>Un GIF/capture de <b>personnalisation</b> (changement de couleur) — gros plus.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Trafic gratuit</h2>
+    <div class="grid">
+      <div class="cardlet"><div class="k">Pinterest</div><div class="v">1 épingle par template + 1 « pack ». <b>Canal n°1</b> pour le web design.</div></div>
+      <div class="cardlet"><div class="k">Communautés</div><div class="v">Indie Hackers, r/webdev, groupes no-code / startup.</div></div>
+      <div class="cardlet"><div class="k">Démo live</div><div class="v">Mets chaque template en démo (Netlify) et lie-la depuis la fiche.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Avant de publier</h2>
+    <ul class="checklist">
+      <li>Fichier de livraison = un <b>.zip</b> avec les 3 dossiers (index.html + un README « comment éditer »).</li>
+      <li>Couverture + 4-5 visuels de galerie (zoom de chaque template + responsive).</li>
+      <li>Idéalement une <b>démo en ligne</b> par template (Netlify) — ça rassure et fait vendre.</li>
+      <li>Titre + tags + description collés · prix de lancement activé.</li>
+      <li>Licence claire : usage perso &amp; commercial, pas de revente des fichiers.</li>
+    </ul>
+    <div class="note"><b>Livraison :</b> zippe le dossier <code>templates-sites-web/</code> (Orbit, Nimbus, Petal) + ajoute un petit <b>README</b> qui explique où changer les textes et couleurs. Je peux te le générer si tu veux.</div>
+  </section>
+
+  <footer>Yuzio · Pack 3 Templates Landing SaaS — kit de vente</footer>
+</div></div>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function(b){b.addEventListener('click',function(){
+    var t=b.parentElement.querySelector('pre').textContent;
+    navigator.clipboard.writeText(t).then(function(){var o=b.textContent;b.textContent='Copié ✓';b.classList.add('done');setTimeout(function(){b.textContent=o;b.classList.remove('done')},1600)});
+  })});
+  document.getElementById('tg').addEventListener('click',function(){var c=document.documentElement.getAttribute('data-theme');var n=c==='dark'?'light':(c==='light'?'dark':(matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));document.documentElement.setAttribute('data-theme',n)});
+</script>

@@ -1,0 +1,61 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:2000px;height:2000px;overflow:hidden}
+  .stage{position:relative;width:2000px;height:2000px;background:#0b0b10;overflow:hidden;font-family:"Archivo",sans-serif;color:#fff}
+  .glow{position:absolute;inset:0;background:
+    radial-gradient(50% 34% at 50% 6%, rgba(66,211,103,.22), transparent 60%),
+    radial-gradient(60% 50% at 50% 120%, rgba(66,211,103,.10), transparent 60%)}
+  .grain{position:absolute;inset:0;mix-blend-mode:soft-light;opacity:.4;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .vig{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 42%, transparent 55%, rgba(0,0,0,.6))}
+  .frame{position:absolute;inset:64px;border:2px solid rgba(255,255,255,.14);border-radius:26px}
+  .brk{position:absolute;width:64px;height:64px;border:3px solid #42D367}
+  .brk.tl{top:110px;left:110px;border-right:0;border-bottom:0}.brk.tr{top:110px;right:110px;border-left:0;border-bottom:0}
+  .brk.bl{bottom:110px;left:110px;border-right:0;border-top:0}.brk.br{bottom:110px;right:110px;border-left:0;border-top:0}
+
+  .head{position:absolute;top:150px;left:0;right:0;text-align:center;z-index:6}
+  .eyebrow{font-size:30px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:700}
+  .eyebrow b{color:#42D367}
+  .title{font-family:"Archivo Black",sans-serif;font-size:150px;line-height:.9;letter-spacing:-.03em;text-transform:uppercase;margin:24px 0 10px}
+  .title .g{color:#42D367}
+  .sub{font-size:38px;color:rgba(255,255,255,.82);font-weight:600}
+
+  .wins{position:absolute;left:0;right:0;top:640px;height:900px;z-index:4}
+  .win{position:absolute;border-radius:16px;overflow:hidden;background:#15151c;border:1px solid rgba(255,255,255,.12);box-shadow:0 60px 120px -50px rgba(0,0,0,.9)}
+  .win .bar{height:46px;display:flex;align-items:center;gap:10px;padding:0 18px;background:#1c1c25;border-bottom:1px solid rgba(255,255,255,.07)}
+  .win .bar i{width:12px;height:12px;border-radius:50%}
+  .win .bar .r{background:#ff5f57}.win .bar .y{background:#febc2e}.win .bar .gr{background:#28c840}
+  .win .bar .url{margin-left:16px;flex:1;height:24px;border-radius:7px;background:#12121a;display:flex;align-items:center;padding:0 12px;font-size:14px;color:#7d7d92;font-family:"Archivo",sans-serif}
+  .win .shot{width:100%;height:560px;object-fit:cover;object-position:top center;display:block}
+  .win.center{left:590px;width:820px;top:0;z-index:5}
+  .win.center .shot{height:600px}
+  .win.left{left:60px;width:760px;top:96px;transform:rotate(-5deg);z-index:3}
+  .win.right{right:60px;width:760px;top:96px;transform:rotate(5deg);z-index:3}
+
+  .brand{position:absolute;bottom:120px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:18px;z-index:6}
+  .brand img{height:96px}
+  .brand .tag{font-size:28px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600}
+</style></head>
+<body>
+<div class="stage">
+  <div class="glow"></div>
+  <div class="wins">
+    <div class="win left"><div class="bar"><i class="r"></i><i class="y"></i><i class="gr"></i><span class="url">nimbus.app</span></div><img class="shot" src="file:///home/user/Digital-vente-/templates-sites-web/_hero-nimbus.png"></div>
+    <div class="win right"><div class="bar"><i class="r"></i><i class="y"></i><i class="gr"></i><span class="url">petal.money</span></div><img class="shot" src="file:///home/user/Digital-vente-/templates-sites-web/_hero-petal.png"></div>
+    <div class="win center"><div class="bar"><i class="r"></i><i class="y"></i><i class="gr"></i><span class="url">orbit.app</span></div><img class="shot" src="file:///home/user/Digital-vente-/templates-sites-web/_hero-orbit.png"></div>
+  </div>
+  <div class="grain"></div><div class="vig"></div>
+  <div class="frame"></div>
+  <div class="brk tl"></div><div class="brk tr"></div><div class="brk bl"></div><div class="brk br"></div>
+
+  <div class="head">
+    <div class="eyebrow">Templates de sites web · <b>HTML responsive</b></div>
+    <div class="title">3 Landing<br>Sa<span class="g">a</span>S</div>
+    <div class="sub">Prêtes à personnaliser · code propre · mobile</div>
+  </div>
+
+  <div class="brand">
+    <img src="file:///home/user/Digital-vente-/pack-canva-stories-coachs/assets/yuzio-lockup-green.png" alt="Yuzio">
+    <div class="tag">3 designs · 1 pack</div>
+  </div>
+</div>
+</body></html>
