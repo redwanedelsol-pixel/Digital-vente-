@@ -23,7 +23,7 @@ const GRAIN =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E";
 
 const STORY_CSS = `
-.stage{position:relative;width:1080px;height:1920px;overflow:hidden;color:#fff;font-family:"Archivo",sans-serif;isolation:isolate;--amber:#e0913f}
+.stage{position:relative;width:1080px;height:1920px;overflow:hidden;color:#fff;font-family:"Archivo",sans-serif;isolation:isolate;--amber:#42D367}
 .photo{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
 .stage::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:soft-light;opacity:.5;background-image:url("${GRAIN}")}
 .stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(135% 100% at 50% 42%, transparent 50%, rgba(0,0,0,.7) 100%)}
@@ -266,7 +266,7 @@ select.wide{width:100%}
       <button class="btn ghost" id="redoBtn" title="Rétablir (Ctrl+Maj+Z)">↷</button>
     </div>
     <label>@ <input id="handle" type="text" value="@votre.compte" /></label>
-    <label>Accent <input id="accent" type="color" value="#e0913f" /></label>
+    <label>Accent <input id="accent" type="color" value="#42D367" /></label>
     <div class="tgrp right">
       <button class="btn" id="dl">⬇ Télécharger</button>
       <button class="btn ghost" id="dlall">Les 30</button>
@@ -339,7 +339,7 @@ select.wide{width:100%}
 const FONT_CSS = ${JSON.stringify(FONT_CSS)};
 const STORY_CSS = ${JSON.stringify(STORY_CSS)};
 const STORIES = ${JSON.stringify(S)};
-let handle = "@votre.compte", accent = "#e0913f", idx = 0;
+let handle = "@votre.compte", accent = "#42D367", idx = 0;
 
 const esc = s => String(s??"").replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const nl = s => esc(s).replace(/\\\\n/g,'<br>');
@@ -570,7 +570,7 @@ function syncProps(){ if(!selEl) return; const a=(STORIES[idx].f._adj||{})[selKe
   id('pItal').classList.toggle('on',!!a.italic); id('pUpper').classList.toggle('on',!!a.upper);
   segSet('segText','ta',a.align||'');
   id('pColor').value=a.color||'#ffffff'; id('pColorHex').value=(a.color||'#FFFFFF').toUpperCase();
-  id('pBg').value=a.bg||'#e0913f'; id('pBgHex').value=(a.bg||'').toUpperCase();
+  id('pBg').value=a.bg||'#42D367'; id('pBgHex').value=(a.bg||'').toUpperCase();
   id('pOp').value=a.op!=null?a.op:1; id('pLs').value=a.ls!=null?a.ls:0; id('pLh').value=a.lh!=null?a.lh:1.1; }
 
 // position & taille
@@ -610,7 +610,7 @@ id('pReset').onclick=()=>{ if(!selEl)return; const k=selKey; if(STORIES[idx].f._
 // rail : ajout d'éléments + photo
 function addExtra(o){ const st=STORIES[idx]; st.f._extra=st.f._extra||[]; st.f._extra.push(o); save(); paint(); reselect('m'+(movables(stage).length-1)); }
 id('addText').onclick=()=>addExtra({kind:'text',x:120,y:820,w:840,size:96,text:'TON TEXTE'});
-id('addRect').onclick=()=>addExtra({kind:'rect',x:140,y:900,w:800,h:180,color:'rgba(224,145,63,.92)',r:0});
+id('addRect').onclick=()=>addExtra({kind:'rect',x:140,y:900,w:800,h:180,color:'rgba(66,211,103,.92)',r:0});
 id('addLine').onclick=()=>addExtra({kind:'line',x:140,y:960,w:520,h:6,color:'#ffffff'});
 id('addImg').onclick=()=>id('imgel').click();
 id('imgel').onchange=e=>{ const file=e.target.files[0]; if(!file) return; const isPng=/png/i.test(file.type); const fr=new FileReader();

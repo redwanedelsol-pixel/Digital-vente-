@@ -7,7 +7,7 @@
   .grid .c{background-size:cover;background-position:center 42%}
   /* voile sombre + halo ambré + vignette */
   .veil{position:absolute;inset:0;background:
-     radial-gradient(120% 90% at 50% 30%, rgba(224,145,63,.18), transparent 55%),
+     radial-gradient(120% 90% at 50% 30%, rgba(66,211,103,.18), transparent 55%),
      linear-gradient(180deg, rgba(9,9,11,.72), rgba(9,9,11,.60) 40%, rgba(9,9,11,.88));}
   .vig{position:absolute;inset:0;background:radial-gradient(130% 100% at 50% 45%, transparent 48%, rgba(0,0,0,.6));}
   .grain{position:absolute;inset:0;mix-blend-mode:soft-light;opacity:.4;
@@ -15,7 +15,7 @@
 
   /* cadre fin */
   .frame{position:absolute;inset:70px;border:2px solid rgba(255,255,255,.22);border-radius:26px;pointer-events:none}
-  .brk{position:absolute;width:70px;height:70px;border:3px solid #e0913f}
+  .brk{position:absolute;width:70px;height:70px;border:3px solid #42D367}
   .brk.tl{top:120px;left:120px;border-right:0;border-bottom:0}
   .brk.tr{top:120px;right:120px;border-left:0;border-bottom:0}
   .brk.bl{bottom:120px;left:120px;border-right:0;border-top:0}
@@ -23,14 +23,15 @@
 
   .content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 180px}
   .eyebrow{font-size:34px;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:700}
-  .eyebrow b{color:#e0913f}
+  .eyebrow b{color:#42D367}
   .huge{font-family:"Archivo Black",sans-serif;font-size:300px;line-height:.9;letter-spacing:-.03em;text-transform:uppercase;margin:26px 0 4px;text-shadow:0 20px 60px rgba(0,0,0,.6)}
-  .script{font-family:"Dancing Script",cursive;font-weight:600;font-size:150px;color:#e0913f;margin-top:-8px;line-height:1}
+  .script{font-family:"Dancing Script",cursive;font-weight:600;font-size:150px;color:#42D367;margin-top:-8px;line-height:1}
   .sub{font-size:44px;color:rgba(255,255,255,.9);font-weight:600;margin-top:34px;letter-spacing:.01em}
   .sub b{color:#fff}
-  .pill{margin-top:40px;display:inline-flex;align-items:center;gap:18px;border:2px solid rgba(224,145,63,.6);border-radius:999px;padding:20px 40px;font-size:32px;letter-spacing:.14em;text-transform:uppercase;color:#e0913f;font-weight:700}
-  .pill i{width:16px;height:16px;border-radius:50%;background:#e0913f;display:block}
-  .count{position:absolute;top:150px;left:0;right:0;text-align:center;font-family:"Archivo Black",sans-serif;font-size:0}
+  .pill{margin-top:40px;display:inline-flex;align-items:center;gap:18px;border:2px solid rgba(66,211,103,.6);border-radius:999px;padding:20px 40px;font-size:32px;letter-spacing:.14em;text-transform:uppercase;color:#42D367;font-weight:700}
+  .pill i{width:16px;height:16px;border-radius:50%;background:#42D367;display:block}
+  .brand{position:absolute;bottom:150px;left:0;right:0;text-align:center;font-family:"Archivo Black",sans-serif;font-size:46px;letter-spacing:.14em;color:#fff}
+  .brand .g{color:#42D367}
 </style></head>
 <body>
 <div class="cover">
@@ -59,5 +60,6 @@
     <div class="sub">Instagram pour <b>coachs &amp; solopreneurs</b></div>
     <div class="pill"><i></i> prêtes à personnaliser</div>
   </div>
+  <div class="brand">YUZI<span class="g">O</span></div>
 </div>
 </body></html>
