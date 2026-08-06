@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nimbus — Ship faster, break less</title>
+<meta name="description" content="Nimbus is the deployment platform that ships your code in seconds, catches regressions before your users do, and keeps every environment in sync." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#09090e; --panel:#111119; --panel-2:#16161f; --ink:#f5f5f8; --mut:#9c9cb3; --faint:#66667e;
+    --line:#22222e; --line-2:#2c2c3a;
+    --acc:#d6f84a; --acc-ink:#0d0d12; --acc-soft:rgba(214,248,74,.12);
+    --ok:#7CF5A0;
+    --disp:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"IBM Plex Mono",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+  .wrap{width:min(1160px,92vw);margin:0 auto}
+  h1,h2,h3{font-family:var(--disp);font-weight:700;letter-spacing:-.02em;line-height:1.02;text-wrap:balance}
+  .mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;color:var(--acc);letter-spacing:.06em}
+  .muted{color:var(--mut)}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--body);font-weight:600;font-size:15px;padding:13px 20px;border-radius:11px;border:1px solid transparent;cursor:pointer;transition:transform .12s,background .2s,border-color .2s}
+  .btn-acc{background:var(--acc);color:var(--acc-ink)} .btn-acc:hover{transform:translateY(-1px)}
+  .btn-line{background:transparent;color:var(--ink);border-color:var(--line-2)} .btn-line:hover{border-color:var(--acc);color:var(--acc)}
+  .btn .arw{transition:transform .18s} .btn:hover .arw{transform:translateX(3px)}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+  header.nav.scrolled{border-color:var(--line)}
+  .nav-row{display:flex;align-items:center;gap:24px;height:70px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:19px}
+  .logo .mark{width:26px;height:26px;border-radius:8px;background:var(--acc);position:relative}
+  .logo .mark::after{content:"";position:absolute;inset:0;margin:auto;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:10px solid var(--acc-ink);transform:translateY(-1px)}
+  .nav-links{display:flex;gap:2px;margin-left:10px}
+  .nav-links a{padding:8px 13px;border-radius:8px;font-size:14.5px;color:var(--mut)} .nav-links a:hover{color:var(--ink)}
+  .nav-cta{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .nav-cta .gh{font-size:14.5px;color:var(--mut)} .nav-cta .gh:hover{color:var(--ink)}
+  .burger{display:none;margin-left:auto;width:44px;height:44px;border:1px solid var(--line-2);border-radius:10px;background:var(--panel);flex-direction:column;gap:4px;align-items:center;justify-content:center;cursor:pointer}
+  .burger span{width:17px;height:2px;background:var(--ink)}
+
+  /* hero — centered */
+  .hero{text-align:center;padding:84px 0 40px;position:relative}
+  .hero::before{content:"";position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:820px;height:520px;max-width:120vw;background:radial-gradient(circle at 50% 20%, rgba(214,248,74,.16), transparent 60%);z-index:-1}
+  .hero .tagpill{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12.5px;color:var(--mut);border:1px solid var(--line-2);background:var(--panel);padding:6px 14px;border-radius:999px}
+  .hero .tagpill b{color:var(--acc)}
+  .hero h1{font-size:clamp(40px,7vw,80px);font-weight:700;margin:24px 0 20px;letter-spacing:-.03em}
+  .hero h1 .u{position:relative;white-space:nowrap}
+  .hero h1 .u::after{content:"";position:absolute;left:0;right:0;bottom:.08em;height:.14em;background:var(--acc);opacity:.85;z-index:-1}
+  .hero p.lead{font-size:clamp(17px,1.6vw,20px);color:var(--mut);max-width:60ch;margin:0 auto}
+  .hero .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+  .code{font-family:var(--mono);font-size:14px;color:var(--ink);background:var(--panel);border:1px solid var(--line-2);border-radius:11px;padding:12px 16px;display:inline-flex;gap:10px;align-items:center}
+  .code .dollar{color:var(--acc)} .code .cur{width:8px;height:16px;background:var(--acc);display:inline-block;animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* hero product shot (wide) */
+  .shot{margin:52px auto 0;max-width:1040px;background:linear-gradient(180deg,var(--panel),var(--bg));border:1px solid var(--line-2);border-radius:18px;padding:12px;box-shadow:0 40px 90px -40px rgba(0,0,0,.9), 0 0 0 1px rgba(214,248,74,.06)}
+  .app{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:200px 1fr}
+  .app .side{border-right:1px solid var(--line);padding:16px 14px}
+  .app .side .brand{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:700;font-size:14px;margin-bottom:18px}
+  .app .side .brand i{width:18px;height:18px;border-radius:5px;background:var(--acc)}
+  .app .side .nl{display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:8px;font-size:12.5px;color:var(--mut);margin-bottom:3px}
+  .app .side .nl.on{background:var(--acc-soft);color:var(--ink)}
+  .app .side .nl b{width:14px;height:14px;border-radius:4px;background:#33333f}
+  .app .side .nl.on b{background:var(--acc)}
+  .app .main{padding:18px 20px;text-align:left}
+  .app .h{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+  .app .h .t{font-family:var(--disp);font-weight:600;font-size:16px}
+  .app .h .st{font-family:var(--mono);font-size:11px;color:var(--ok);border:1px solid rgba(124,245,160,.3);padding:4px 10px;border-radius:7px}
+  .deploys{display:flex;flex-direction:column;gap:9px}
+  .dep{display:grid;grid-template-columns:12px 1fr auto auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .dep .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
+  .dep .dot.run{background:var(--acc);box-shadow:0 0 8px var(--acc)}
+  .dep .nm{font-size:13px} .dep .nm span{font-family:var(--mono);color:var(--faint);font-size:11px}
+  .dep .br{font-family:var(--mono);font-size:11px;color:var(--mut)}
+  .dep .tm{font-family:var(--mono);font-size:11px;color:var(--faint)}
+
+  .logos{padding:46px 0 10px;text-align:center}
+  .logos p{font-family:var(--mono);font-size:12px;color:var(--faint);margin-bottom:22px;letter-spacing:.06em}
+  .logo-row{display:flex;flex-wrap:wrap;gap:16px 44px;justify-content:center;align-items:center;opacity:.6}
+  .logo-row span{font-family:var(--disp);font-weight:600;font-size:18px;color:#8888a0}
+
+  /* feature rows (alternating) */
+  .frow{padding:60px 0;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .frow.rev .fv{order:-1}
+  .frow h2{font-size:clamp(26px,3.2vw,38px);margin:14px 0 14px}
+  .frow p{color:var(--mut);font-size:16px;max-width:44ch}
+  .frow ul{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:10px}
+  .frow li{display:flex;gap:10px;font-size:14.5px;color:var(--ink)}
+  .frow li svg{width:18px;height:18px;color:var(--acc);flex:none;margin-top:2px}
+  .fv{background:var(--panel);border:1px solid var(--line-2);border-radius:16px;padding:20px;min-height:250px}
+  /* mini visuals */
+  .pipe{display:flex;flex-direction:column;gap:10px}
+  .pipe .stg{display:flex;align-items:center;gap:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:12.5px}
+  .pipe .stg .ic{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:12px;background:rgba(124,245,160,.14);color:var(--ok)}
+  .pipe .stg.run .ic{background:var(--acc-soft);color:var(--acc)}
+  .pipe .stg .bar{flex:1;height:5px;border-radius:3px;background:#2a2a38;overflow:hidden;position:relative}
+  .pipe .stg .bar i{position:absolute;inset:0;width:100%;background:var(--ok)}
+  .pipe .stg.run .bar i{width:62%;background:var(--acc)}
+  .pipe .stg .tm{font-family:var(--mono);color:var(--faint);font-size:11px}
+  .term{font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#c9c9dc}
+  .term .g{color:var(--acc)} .term .k{color:var(--ok)} .term .d{color:var(--faint)}
+  .chartbox .cg{display:flex;align-items:flex-end;gap:9px;height:150px}
+  .chartbox .cg i{flex:1;border-radius:6px 6px 0 0;background:linear-gradient(180deg,var(--acc),rgba(214,248,74,.25))}
+  .chartbox .lg{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:8px}
+
+  /* integrations */
+  .integ{padding:70px 0;text-align:center}
+  .integ h2{font-size:clamp(26px,3.4vw,40px);margin-bottom:12px}
+  .integ p{color:var(--mut);max-width:52ch;margin:0 auto 30px}
+  .chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .chips .c{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink);background:var(--panel);border:1px solid var(--line-2);padding:11px 16px;border-radius:11px}
+  .chips .c i{width:16px;height:16px;border-radius:5px;background:var(--acc);opacity:.85}
+
+  /* pricing */
+  .sec-head{text-align:center;max-width:620px;margin:0 auto 44px}
+  .sec-head h2{font-size:clamp(28px,3.6vw,42px);margin:12px 0 12px}
+  .sec-head p{color:var(--mut);font-size:16px}
+  .price{padding:74px 0}
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .plan{background:var(--panel);border:1px solid var(--line-2);border-radius:16px;padding:28px;display:flex;flex-direction:column}
+  .plan.hot{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc), 0 30px 60px -30px rgba(214,248,74,.25)}
+  .plan .pn{font-family:var(--mono);font-size:12.5px;color:var(--acc);letter-spacing:.06em;text-transform:uppercase}
+  .plan .pr{font-family:var(--disp);font-weight:700;font-size:40px;margin:12px 0 2px}
+  .plan .pr span{font-family:var(--body);font-size:14px;color:var(--mut);font-weight:400}
+  .plan .pd{color:var(--mut);font-size:13.5px;min-height:38px}
+  .plan ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin:18px 0 24px}
+  .plan li{display:flex;gap:9px;font-size:14px} .plan li svg{width:17px;height:17px;color:var(--acc);flex:none;margin-top:2px}
+  .plan .btn{width:100%;justify-content:center;margin-top:auto}
+
+  /* cta */
+  .cta{padding:20px 0 90px}
+  .cta-band{border:1px solid var(--line-2);border-radius:22px;padding:56px;text-align:center;background:radial-gradient(70% 140% at 50% 0%, rgba(214,248,74,.12), transparent 60%), var(--panel)}
+  .cta-band h2{font-size:clamp(28px,4vw,46px);margin-bottom:14px}
+  .cta-band p{color:var(--mut);max-width:46ch;margin:0 auto 26px}
+
+  footer{border-top:1px solid var(--line);padding:56px 0 34px}
+  .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:28px}
+  .foot-grid .about p{color:var(--mut);font-size:13.5px;margin-top:14px;max-width:30ch}
+  .fcol h4{font-family:var(--mono);font-size:12px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+  .fcol a{display:block;color:var(--mut);font-size:14px;padding:4px 0} .fcol a:hover{color:var(--acc)}
+  .foot-btm{display:flex;justify-content:space-between;margin-top:38px;padding-top:20px;border-top:1px solid var(--line);color:var(--faint);font-size:13px;flex-wrap:wrap;gap:10px;font-family:var(--mono)}
+
+  @media(max-width:900px){
+    .nav-links,.nav-cta .gh{display:none} .burger{display:flex} .nav-cta{margin-left:0}
+    .app{grid-template-columns:1fr} .app .side{display:none}
+    .frow{grid-template-columns:1fr;gap:28px;padding:44px 0} .frow.rev .fv{order:0}
+    .price-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}
+    .foot-grid{grid-template-columns:1fr 1fr} .cta-band{padding:40px 24px}
+  }
+  @media(max-width:520px){ .foot-grid{grid-template-columns:1fr} }
+  .mm{display:none;position:fixed;top:70px;left:0;right:0;z-index:49;background:var(--panel);border-bottom:1px solid var(--line);padding:14px 0}
+  .mm.open{display:block} .mm .wrap a{display:block;padding:12px 4px;color:var(--ink);border-bottom:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-row">
+    <a class="logo" href="#"><span class="mark"></span>Nimbus</a>
+    <nav class="nav-links"><a href="#features">Features</a><a href="#integrations">Integrations</a><a href="#pricing">Pricing</a><a href="#">Docs</a><a href="#">Changelog</a></nav>
+    <div class="nav-cta"><a class="gh" href="#">Sign in</a><a class="btn btn-acc" href="#pricing">Deploy now <span class="arw">→</span></a></div>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mm" id="mm"><div class="wrap"><a href="#features">Features</a><a href="#integrations">Integrations</a><a href="#pricing">Pricing</a><a href="#">Docs</a><a href="#pricing" style="color:var(--acc)">Deploy now →</a></div></div>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="tagpill">◆ <b>v2.0</b> — instant rollbacks are here</span>
+    <h1>Ship faster.<br><span class="u">Break less.</span></h1>
+    <p class="lead">Nimbus deploys your code in seconds, catches regressions before your users do, and keeps every environment perfectly in sync.</p>
+    <div class="cta-row">
+      <a class="btn btn-acc" href="#pricing">Start deploying <span class="arw">→</span></a>
+      <span class="code"><span class="dollar">$</span> npx nimbus deploy <span class="cur"></span></span>
+    </div>
+
+    <div class="shot">
+      <div class="app">
+        <div class="side">
+          <div class="brand"><i></i>Nimbus</div>
+          <div class="nl on"><b></b>Deployments</div><div class="nl"><b></b>Environments</div><div class="nl"><b></b>Analytics</div><div class="nl"><b></b>Logs</div><div class="nl"><b></b>Settings</div>
+        </div>
+        <div class="main">
+          <div class="h"><div class="t">Deployments</div><div class="st">● All systems operational</div></div>
+          <div class="deploys">
+            <div class="dep"><span class="dot"></span><span class="nm">production <span>· api-gateway</span></span><span class="br">main@a1f9c2</span><span class="tm">12s ago</span></div>
+            <div class="dep"><span class="dot run"></span><span class="nm">preview <span>· checkout-v3</span></span><span class="br">feat/checkout</span><span class="tm">building…</span></div>
+            <div class="dep"><span class="dot"></span><span class="nm">production <span>· web-app</span></span><span class="br">main@7d2e01</span><span class="tm">4m ago</span></div>
+            <div class="dep"><span class="dot"></span><span class="nm">staging <span>· web-app</span></span><span class="br">release/2.4</span><span class="tm">18m ago</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="logos wrap">
+  <p>// powering deploys at</p>
+  <div class="logo-row"><span>Vercel-ish</span><span>Cobalt</span><span>Northstar</span><span>Fathom</span><span>Relay</span><span>Quanta</span></div>
+</section>
+
+<div class="wrap">
+  <section class="frow" id="features">
+    <div class="ft">
+      <span class="eyebrow">// deploy</span>
+      <h2>From commit to production in seconds.</h2>
+      <p>Push to Git and Nimbus builds, tests, and ships automatically — with atomic deploys and one-click rollbacks when you need them.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Zero-downtime, atomic releases</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Instant rollback to any version</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Preview URL for every pull request</li>
+      </ul>
+    </div>
+    <div class="fv">
+      <div class="pipe">
+        <div class="stg"><span class="ic">✓</span><span style="width:74px">Install</span><span class="bar"><i></i></span><span class="tm">6s</span></div>
+        <div class="stg"><span class="ic">✓</span><span style="width:74px">Build</span><span class="bar"><i></i></span><span class="tm">21s</span></div>
+        <div class="stg"><span class="ic">✓</span><span style="width:74px">Test</span><span class="bar"><i></i></span><span class="tm">14s</span></div>
+        <div class="stg run"><span class="ic">▲</span><span style="width:74px">Deploy</span><span class="bar"><i></i></span><span class="tm">…</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="frow rev">
+    <div class="ft">
+      <span class="eyebrow">// observe</span>
+      <h2>Catch regressions before your users.</h2>
+      <p>Real-time metrics on every deploy. Nimbus flags a slow endpoint or error spike the moment it appears — and can auto-revert.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> p95 latency &amp; error tracking</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Alerts to Slack &amp; PagerDuty</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Auto-revert on failed health checks</li>
+      </ul>
+    </div>
+    <div class="fv chartbox">
+      <div class="cg"><i style="height:46%"></i><i style="height:62%"></i><i style="height:40%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:84%"></i><i style="height:66%"></i><i style="height:95%"></i></div>
+      <div class="lg"><span>mon</span><span>tue</span><span>wed</span><span>thu</span><span>fri</span><span>sat</span><span>sun</span><span>now</span></div>
+    </div>
+  </section>
+
+  <section class="frow">
+    <div class="ft">
+      <span class="eyebrow">// scale</span>
+      <h2>One CLI. Every environment.</h2>
+      <p>Spin up preview, staging and production with the same command. Env vars, secrets and edge config stay in sync automatically.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Encrypted secrets per environment</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Global edge network, 34 regions</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Infra as code, versioned</li>
+      </ul>
+    </div>
+    <div class="fv">
+      <div class="term">
+        <div><span class="g">$</span> nimbus env pull production</div>
+        <div class="d">↓ syncing 24 variables…</div>
+        <div><span class="k">✓</span> production ready <span class="d">· 34 regions</span></div>
+        <div style="margin-top:10px"><span class="g">$</span> nimbus deploy --prod</div>
+        <div class="d">building · testing · shipping</div>
+        <div><span class="k">✓</span> live at <span class="g">nimbus.app</span> <span class="d">(3.2s)</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="integ" id="integrations">
+  <div class="wrap">
+    <span class="eyebrow">// works with your stack</span>
+    <h2>Plug into everything you already use.</h2>
+    <p>50+ native integrations. If it has an API, Nimbus talks to it.</p>
+    <div class="chips">
+      <span class="c"><i></i>GitHub</span><span class="c"><i></i>GitLab</span><span class="c"><i></i>Docker</span><span class="c"><i></i>Slack</span><span class="c"><i></i>Datadog</span><span class="c"><i></i>Sentry</span><span class="c"><i></i>Postgres</span><span class="c"><i></i>Redis</span><span class="c"><i></i>Stripe</span><span class="c"><i></i>Cloudflare</span>
+    </div>
+  </div>
+</section>
+
+<section class="price" id="pricing">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">// pricing</span><h2>Pay for what you ship.</h2><p>Start free forever. Scale when your traffic does.</p></div>
+    <div class="price-grid">
+      <div class="plan">
+        <div class="pn">Hobby</div><div class="pr">$0<span>/mo</span></div><div class="pd">For side projects and prototypes.</div>
+        <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> 100 deploys / mo</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Preview environments</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Community support</li></ul>
+        <a class="btn btn-line" href="#">Start free</a>
+      </div>
+      <div class="plan hot">
+        <div class="pn">Pro</div><div class="pr">$29<span>/mo</span></div><div class="pd">For teams shipping daily.</div>
+        <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Unlimited deploys</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Metrics &amp; auto-revert</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> 34-region edge network</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Priority support</li></ul>
+        <a class="btn btn-acc" href="#">Start 14-day trial <span class="arw">→</span></a>
+      </div>
+      <div class="plan">
+        <div class="pn">Enterprise</div><div class="pr">Custom</div><div class="pd">For orgs with compliance needs.</div>
+        <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> SSO, SAML &amp; audit logs</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Dedicated regions</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> 99.99% SLA</li></ul>
+        <a class="btn btn-line" href="#">Contact sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta"><div class="wrap"><div class="cta-band">
+  <h2>Your next deploy is 3 seconds away.</h2>
+  <p>Connect a repo and ship to production today. No credit card, no config hell.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn btn-acc" href="#">Deploy your first app <span class="arw">→</span></a><a class="btn btn-line" href="#">Read the docs</a></div>
+</div></div></section>
+
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div class="about"><a class="logo" href="#"><span class="mark"></span>Nimbus</a><p>The deployment platform for teams who’d rather ship than babysit infra.</p></div>
+    <div class="fcol"><h4>Product</h4><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#integrations">Integrations</a><a href="#">Edge network</a></div>
+    <div class="fcol"><h4>Developers</h4><a href="#">Docs</a><a href="#">API</a><a href="#">CLI</a><a href="#">Status</a></div>
+    <div class="fcol"><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a></div>
+  </div>
+  <div class="foot-btm"><span>© <span id="yr"></span> Nimbus, Inc.</span><span>Template by Yuzio</span></div>
+</div></footer>
+
+<script>
+  var nav=document.getElementById('nav');addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>8)});
+  var b=document.getElementById('burger'),m=document.getElementById('mm');b.onclick=function(){m.classList.toggle('open')};
+  m.addEventListener('click',function(e){if(e.target.tagName==='A')m.classList.remove('open')});
+  document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

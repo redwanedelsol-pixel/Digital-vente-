@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Petal — Budgeting that feels good</title>
+<meta name="description" content="Petal is the gentle money app that shows what's safe to spend, grows your savings on autopilot, and keeps you calm about money." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbf5ee; --panel:#ffffff; --ink:#2a211c; --mut:#7c7168; --faint:#a89c90;
+    --line:#f0e6da; --line-2:#e7dccd;
+    --acc:#ff6a4d; --acc-2:#ffb27a; --acc-soft:#ffe9e2; --acc-ink:#fff;
+    --mint:#16a58c;
+    --disp:"Fraunces",Georgia,serif; --body:"Inter",system-ui,sans-serif;
+    --shadow:0 30px 60px -34px rgba(120,70,40,.4);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+  .wrap{width:min(1120px,92vw);margin:0 auto}
+  h1,h2,h3{font-family:var(--disp);font-weight:600;line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--acc);background:var(--acc-soft);padding:7px 15px;border-radius:999px}
+  .eyebrow .s{color:var(--acc)}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--body);font-weight:600;font-size:15px;padding:14px 24px;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:transform .12s,box-shadow .2s,background .2s}
+  .btn-acc{background:var(--acc);color:var(--acc-ink);box-shadow:0 14px 26px -12px rgba(255,106,77,.6)} .btn-acc:hover{transform:translateY(-1px)}
+  .btn-soft{background:var(--panel);color:var(--ink);border-color:var(--line-2)} .btn-soft:hover{border-color:var(--acc);color:var(--acc)}
+  .btn .arw{transition:transform .18s} .btn:hover .arw{transform:translateX(3px)}
+
+  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 84%,transparent);backdrop-filter:blur(12px)}
+  .nav-row{display:flex;align-items:center;gap:24px;height:74px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:22px}
+  .logo .mark{width:28px;height:28px;border-radius:50% 50% 50% 8px;background:linear-gradient(140deg,var(--acc),var(--acc-2));transform:rotate(8deg)}
+  .nav-links{display:flex;gap:6px;margin-left:8px}
+  .nav-links a{padding:9px 14px;border-radius:999px;font-size:15px;color:var(--mut)} .nav-links a:hover{color:var(--ink);background:var(--panel)}
+  .nav-cta{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .nav-cta .li{font-size:15px;font-weight:500;color:var(--ink)}
+  .burger{display:none;margin-left:auto;width:44px;height:44px;border:1px solid var(--line-2);border-radius:12px;background:var(--panel);flex-direction:column;gap:4px;align-items:center;justify-content:center;cursor:pointer}
+  .burger span{width:18px;height:2px;background:var(--ink);border-radius:2px}
+
+  /* hero centered */
+  .hero{text-align:center;padding:64px 0 30px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:760px;height:620px;max-width:130vw;
+    background:radial-gradient(closest-side, rgba(255,178,122,.5), rgba(255,106,77,.18) 55%, transparent 72%);filter:blur(20px);z-index:-1;border-radius:50%}
+  .hero h1{font-size:clamp(42px,6.6vw,78px);font-weight:600;margin:22px 0 18px}
+  .hero h1 em{font-style:italic;color:var(--acc)}
+  .hero p.lead{font-size:clamp(17px,1.6vw,20px);color:var(--mut);max-width:52ch;margin:0 auto}
+  .hero .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+  .hero .trust{display:flex;align-items:center;gap:12px;justify-content:center;margin-top:24px;font-size:14px;color:var(--faint)}
+  .avatars{display:flex} .avatars i{width:32px;height:32px;border-radius:50%;border:2.5px solid var(--bg);margin-left:-10px}
+  .avatars i:first-child{margin-left:0}
+  .avatars i:nth-child(1){background:linear-gradient(135deg,#ffd4a8,#ff9a6b)} .avatars i:nth-child(2){background:linear-gradient(135deg,#ffc0b3,#ff6a4d)}
+  .avatars i:nth-child(3){background:linear-gradient(135deg,#c7efe4,#16a58c)} .avatars i:nth-child(4){background:linear-gradient(135deg,#ffe0a3,#ffb27a)}
+
+  /* app card mockup */
+  .appcard{max-width:440px;margin:44px auto 0;background:var(--panel);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:24px;text-align:left;position:relative}
+  .appcard .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .appcard .top .h{font-size:13px;color:var(--faint)} .appcard .top .b{width:32px;height:32px;border-radius:10px;background:linear-gradient(140deg,var(--acc),var(--acc-2))}
+  .appcard .bal{font-size:13px;color:var(--mut)} .appcard .amt{font-family:var(--disp);font-weight:700;font-size:40px;letter-spacing:-.02em;margin:2px 0 4px}
+  .appcard .safe{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--mint);background:#e5f6f2;padding:6px 12px;border-radius:999px}
+  .cats{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+  .cat{display:flex;align-items:center;gap:12px}
+  .cat .ic{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:15px}
+  .cat .nm{flex:1;font-size:14px;font-weight:500}
+  .cat .track{width:110px;height:7px;border-radius:5px;background:#f1ebe2;overflow:hidden}
+  .cat .track i{display:block;height:100%;border-radius:5px}
+  .cat .vv{font-size:12.5px;color:var(--mut);width:52px;text-align:right;font-variant-numeric:tabular-nums}
+  .float{position:absolute;background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:12px 15px;display:flex;align-items:center;gap:11px}
+  .float .ic{width:34px;height:34px;border-radius:11px;background:var(--acc-soft);display:grid;place-items:center;font-size:16px}
+  .float b{font-family:var(--disp);font-size:15px;display:block} .float span{font-size:11.5px;color:var(--mut)}
+  .float.a{top:34px;right:-40px} .float.b{bottom:20px;left:-46px}
+
+  /* two-column what-is */
+  .split{padding:86px 0;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .split h2{font-size:clamp(30px,4vw,46px)}
+  .split .r p{font-size:19px;color:var(--mut);line-height:1.7}
+  .split .r p b{color:var(--ink)}
+  .split .btn{margin-top:22px}
+
+  /* feature cards row */
+  .sec{padding:70px 0}
+  .sec-head{text-align:center;max-width:620px;margin:0 auto 46px}
+  .sec-head h2{font-size:clamp(30px,4vw,46px);margin:16px 0 12px}
+  .sec-head p{font-size:17px;color:var(--mut)}
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .fcard{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:30px}
+  .fcard .ic{width:56px;height:56px;border-radius:17px;display:grid;place-items:center;font-size:24px;margin-bottom:18px}
+  .fcard h3{font-size:22px;margin-bottom:9px} .fcard p{color:var(--mut);font-size:15px}
+
+  /* steps horizontal */
+  .steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:10px}
+  .steps::before{content:"";position:absolute;top:26px;left:16%;right:16%;height:2px;background:repeating-linear-gradient(90deg,var(--line-2) 0 8px,transparent 8px 16px)}
+  .step{text-align:center;position:relative}
+  .step .n{width:54px;height:54px;border-radius:50%;background:var(--panel);border:2px solid var(--acc);color:var(--acc);font-family:var(--disp);font-weight:700;font-size:20px;display:grid;place-items:center;margin:0 auto 18px}
+  .step h3{font-size:20px;margin-bottom:8px} .step p{color:var(--mut);font-size:14.5px;max-width:28ch;margin:0 auto}
+
+  /* testimonials */
+  .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .tcard{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:26px}
+  .tcard .stars{color:var(--acc-2);letter-spacing:2px;font-size:15px}
+  .tcard p{font-size:15.5px;margin:12px 0 18px;color:var(--ink)}
+  .tcard .who{display:flex;align-items:center;gap:11px} .tcard .who i{width:38px;height:38px;border-radius:50%}
+  .tcard .who b{font-family:var(--disp);font-size:15px;display:block} .tcard .who span{font-size:12.5px;color:var(--mut)}
+  .tcard:nth-child(1) .who i{background:linear-gradient(135deg,#ffd4a8,#ff9a6b)} .tcard:nth-child(2) .who i{background:linear-gradient(135deg,#c7efe4,#16a58c)} .tcard:nth-child(3) .who i{background:linear-gradient(135deg,#ffc0b3,#ff6a4d)}
+
+  /* pricing simple */
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:760px;margin:0 auto}
+  .plan{background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:34px;display:flex;flex-direction:column}
+  .plan.hot{background:linear-gradient(165deg,#2a211c,#3a2c24);color:#fdf3ec;border:0}
+  .plan .pn{font-family:var(--disp);font-weight:600;font-size:20px}
+  .plan .pr{font-family:var(--disp);font-weight:700;font-size:46px;margin:12px 0 2px}
+  .plan .pr span{font-family:var(--body);font-size:15px;color:var(--mut);font-weight:400}
+  .plan.hot .pr span{color:#c9b8ac}
+  .plan .pd{color:var(--mut);font-size:14.5px} .plan.hot .pd{color:#c9b8ac}
+  .plan ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin:22px 0 26px}
+  .plan li{display:flex;gap:10px;font-size:15px} .plan li svg{width:19px;height:19px;color:var(--acc);flex:none;margin-top:1px}
+  .plan.hot li svg{color:var(--acc-2)}
+  .plan .btn{width:100%;justify-content:center;margin-top:auto}
+  .plan.hot .btn-soft{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+
+  /* cta */
+  .cta-band{background:linear-gradient(150deg,var(--acc),var(--acc-2));border-radius:32px;padding:64px;text-align:center;color:#fff;position:relative;overflow:hidden}
+  .cta-band::after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.16);top:-120px;right:-60px}
+  .cta-band h2{position:relative;font-size:clamp(30px,4.4vw,48px);margin-bottom:14px}
+  .cta-band p{position:relative;font-size:17px;color:#fff;opacity:.92;max-width:44ch;margin:0 auto 28px}
+  .cta-band .btn-white{position:relative;background:#fff;color:var(--acc)}
+
+  footer{padding:60px 0 34px;margin-top:80px;border-top:1px solid var(--line)}
+  .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:28px}
+  .foot-grid .about p{color:var(--mut);font-size:14px;margin-top:14px;max-width:30ch}
+  .fcol h4{font-family:var(--disp);font-size:15px;margin-bottom:12px}
+  .fcol a{display:block;color:var(--mut);font-size:14.5px;padding:5px 0} .fcol a:hover{color:var(--acc)}
+  .foot-btm{display:flex;justify-content:space-between;margin-top:40px;padding-top:22px;border-top:1px solid var(--line);color:var(--faint);font-size:13.5px;flex-wrap:wrap;gap:10px}
+
+  @media(max-width:900px){
+    .nav-links,.nav-cta .li{display:none} .burger{display:flex} .nav-cta{margin-left:0}
+    .split{grid-template-columns:1fr;gap:24px;padding:56px 0}
+    .cards3,.tgrid{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr;gap:34px} .steps::before{display:none}
+    .price-grid{grid-template-columns:1fr;max-width:420px}
+    .foot-grid{grid-template-columns:1fr 1fr} .cta-band{padding:44px 26px}
+    .float.a{right:-10px} .float.b{left:-14px}
+  }
+  @media(max-width:520px){.foot-grid{grid-template-columns:1fr}}
+  .mm{display:none;position:fixed;top:74px;left:0;right:0;z-index:49;background:var(--panel);border-bottom:1px solid var(--line);padding:14px 0}
+  .mm.open{display:block} .mm .wrap a{display:block;padding:12px 4px;border-bottom:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="nav"><div class="wrap nav-row">
+  <a class="logo" href="#"><span class="mark"></span>Petal</a>
+  <nav class="nav-links"><a href="#what">Why Petal</a><a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a></nav>
+  <div class="nav-cta"><a class="li" href="#">Log in</a><a class="btn btn-acc" href="#pricing">Get the app <span class="arw">→</span></a></div>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+</div></header>
+<div class="mm" id="mm"><div class="wrap"><a href="#what">Why Petal</a><a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#pricing" style="color:var(--acc)">Get the app →</a></div></div>
+
+<section class="hero"><div class="wrap">
+  <span class="eyebrow"><span class="s">✦</span> Your money, finally calm</span>
+  <h1>Budgeting that <em>feels good.</em></h1>
+  <p class="lead">Petal shows exactly what's safe to spend, grows your savings on autopilot, and takes the anxiety out of money — gently.</p>
+  <div class="cta-row"><a class="btn btn-acc" href="#pricing">Start free <span class="arw">→</span></a><a class="btn btn-soft" href="#how">See how it works</a></div>
+  <div class="trust"><div class="avatars"><i></i><i></i><i></i><i></i></div><div>Trusted by <b style="color:var(--ink)">120,000+</b> happy savers</div></div>
+
+  <div class="appcard">
+    <div class="top"><div class="h">Main account</div><div class="b"></div></div>
+    <div class="bal">Balance</div>
+    <div class="amt">€4,280<span style="font-size:20px;color:var(--faint)">.50</span></div>
+    <div class="safe">● €640 safe to spend this week</div>
+    <div class="cats">
+      <div class="cat"><div class="ic" style="background:#ffe9e2">🍜</div><div class="nm">Eating out</div><div class="track"><i style="width:64%;background:var(--acc)"></i></div><div class="vv">€128</div></div>
+      <div class="cat"><div class="ic" style="background:#fff1e0">🚌</div><div class="nm">Transport</div><div class="track"><i style="width:40%;background:var(--acc-2)"></i></div><div class="vv">€52</div></div>
+      <div class="cat"><div class="ic" style="background:#e5f6f2">🌱</div><div class="nm">Savings</div><div class="track"><i style="width:82%;background:var(--mint)"></i></div><div class="vv">€300</div></div>
+    </div>
+    <div class="float a"><div class="ic">🌱</div><div><b>+€300</b><span>auto-saved</span></div></div>
+    <div class="float b"><div class="ic">🔔</div><div><b>On track</b><span>for your goal</span></div></div>
+  </div>
+</div></section>
+
+<section class="split wrap" id="what">
+  <div class="l"><span class="eyebrow"><span class="s">✦</span> What is Petal?</span><h2 style="margin-top:16px">A calmer relationship with your money.</h2><a class="btn btn-soft" href="#features">Explore features</a></div>
+  <div class="r"><p>Petal connects to your accounts and does the mental math for you. It sets aside what you need for bills, moves a little to savings automatically, and tells you — in plain words — <b>what's actually safe to spend today.</b> No spreadsheets. No guilt. Just clarity.</p></div>
+</section>
+
+<section class="sec wrap" id="features">
+  <div class="sec-head"><span class="eyebrow"><span class="s">✦</span> Built to feel effortless</span><h2>Everything you need. Nothing you don't.</h2><p>The essentials of good money habits, made gentle and automatic.</p></div>
+  <div class="cards3">
+    <div class="fcard"><div class="ic" style="background:var(--acc-soft)">💸</div><h3>Safe-to-spend</h3><p>See one honest number that already accounts for bills, goals and savings. Spend it without the guilt.</p></div>
+    <div class="fcard"><div class="ic" style="background:#fff1e0">🌱</div><h3>Auto-save</h3><p>Petal tucks away small amounts you won't miss and rounds up your spare change into your goals.</p></div>
+    <div class="fcard"><div class="ic" style="background:#e5f6f2">🛟</div><h3>Bill safety net</h3><p>We ring-fence upcoming bills so a big payment never catches you off guard again.</p></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="how">
+  <div class="sec-head"><span class="eyebrow"><span class="s">✦</span> Set up once, relax after</span><h2>Calm money in three steps</h2></div>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>Connect securely</h3><p>Link your bank in seconds with bank-level encryption. Read-only, always.</p></div>
+    <div class="step"><div class="n">2</div><h3>Set a goal</h3><p>A trip, a cushion, a rainy day. Petal builds the plan around it.</p></div>
+    <div class="step"><div class="n">3</div><h3>Let it flow</h3><p>Petal saves, sorts and nudges — you just live your life.</p></div>
+  </div>
+</section>
+
+<section class="sec wrap">
+  <div class="sec-head"><span class="eyebrow"><span class="s">✦</span> Loved by real people</span><h2>Money stress, gone.</h2></div>
+  <div class="tgrid">
+    <div class="tcard"><div class="stars">★★★★★</div><p>“For the first time I know exactly what I can spend without worrying. It genuinely lowered my anxiety.”</p><div class="who"><i></i><div><b>Amélie R.</b><span>Saved €2,100 in 4 months</span></div></div></div>
+    <div class="tcard"><div class="stars">★★★★★</div><p>“The auto-save is sneaky-good. I didn't feel it leave and suddenly I had a real cushion.”</p><div class="who"><i></i><div><b>Karim B.</b><span>Freelancer</span></div></div></div>
+    <div class="tcard"><div class="stars">★★★★★</div><p>“It's the first money app that doesn't make me feel bad. It's kind. That matters.”</p><div class="who"><i></i><div><b>Lina M.</b><span>Student</span></div></div></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="pricing">
+  <div class="sec-head"><span class="eyebrow"><span class="s">✦</span> Fair pricing</span><h2>Free to start. Delightful to upgrade.</h2></div>
+  <div class="price-grid">
+    <div class="plan">
+      <div class="pn">Free</div><div class="pr">€0<span>/mo</span></div><div class="pd">Everything to get calm about money.</div>
+      <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Safe-to-spend &amp; budgets</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> 1 savings goal</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Bill reminders</li></ul>
+      <a class="btn btn-soft" href="#">Start free</a>
+    </div>
+    <div class="plan hot">
+      <div class="pn">Plus</div><div class="pr">€4<span>/mo</span></div><div class="pd">Auto-pilot for your whole money life.</div>
+      <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Everything in Free</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Unlimited goals &amp; auto-save</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Round-ups &amp; bill safety net</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg> Priority support</li></ul>
+      <a class="btn btn-acc" href="#">Try Plus free for 30 days <span class="arw">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap">
+  <div class="cta-band">
+    <h2>Money, without the worry.</h2>
+    <p>Join 120,000+ people who finally feel calm about their finances. Free to start, cancel anytime.</p>
+    <a class="btn btn-white" href="#">Get Petal free <span class="arw">→</span></a>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div class="about"><a class="logo" href="#"><span class="mark"></span>Petal</a><p>The gentle money app that helps you spend, save and stress less.</p></div>
+    <div class="fcol"><h4>Product</h4><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#">Security</a><a href="#">iOS &amp; Android</a></div>
+    <div class="fcol"><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Contact</a></div>
+    <div class="fcol"><h4>Support</h4><a href="#">Help centre</a><a href="#">Community</a><a href="#">Privacy</a><a href="#">Terms</a></div>
+  </div>
+  <div class="foot-btm"><span>© <span id="yr"></span> Petal Money Ltd.</span><span>Template by Yuzio</span></div>
+</div></footer>
+
+<script>
+  var b=document.getElementById('burger'),m=document.getElementById('mm');b.onclick=function(){m.classList.toggle('open')};
+  m.addEventListener('click',function(e){if(e.target.tagName==='A')m.classList.remove('open')});
+  document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
