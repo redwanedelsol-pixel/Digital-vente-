@@ -150,7 +150,7 @@ function announce(cfg){
   ${corners(true)}
   <div style="position:absolute;left:0;right:0;top:${cfg.h>1400?'34%':'30%'};transform:translateY(-50%);text-align:center;padding:0 70px">
     <div class="eyebrow" style="color:${C.goldL}">${cfg.eyebrow||''}</div>
-    <div class="serif" style="font-size:${cfg.word?'190px':'120px'};font-weight:900;color:${C.paper};line-height:.9;margin:26px 0 0;letter-spacing:-.01em">${cfg.word||cfg.title}</div>
+    <div class="serif" style="font-size:${cfg.wordSize||(cfg.word?190:120)}px;font-weight:900;color:${C.paper};line-height:.94;margin:26px 0 0;letter-spacing:-.01em">${cfg.word||cfg.title}</div>
     ${cfg.sub?`<div style="font-family:'Inter';font-weight:500;font-size:26px;color:rgba(242,236,226,.82);margin-top:26px;line-height:1.5">${cfg.sub}</div>`:''}
   </div>
   <div style="position:absolute;left:0;right:0;bottom:78px;text-align:center;padding:0 70px">
@@ -388,7 +388,7 @@ const T = [
   {id:'07-story-estimation', size:S, fn:ctaCard, cfg:{dark:true, eyebrow:'Offert · sans engagement', title:'Estimation<br>gratuite',
     body:'Connaissez la vraie valeur de votre bien en 48h, réalisée par un expert de votre secteur.',
     cta:'Demander mon estimation', swipe:'Balayez vers le haut'}},
-  {id:'08-story-sous-compromis', size:S, fn:announce, cfg:{dark:true, eyebrow:'Mise à jour', word:'SOUS<br>COMPROMIS',
+  {id:'08-story-sous-compromis', size:S, fn:announce, cfg:{dark:true, eyebrow:'Mise à jour', word:'SOUS<br>COMPROMIS', wordSize:128,
     sub:'Ce bien a trouvé preneur. D’autres arrivent bientôt.'}},
   {id:'09-story-temoignage', size:S, fn:quoteCard, cfg:{dark:true, quote:'Camille a vendu notre maison en un temps record, avec un vrai professionnalisme. On recommande à 100%.',
     who:'Julie & Marc', role:'Vendeurs à Bordeaux'}},
