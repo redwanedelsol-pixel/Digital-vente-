@@ -1,0 +1,96 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
+@font-face{font-family:'Fraunces';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/fraunces-latin-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'Fraunces';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/fraunces-latin-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block}
+@font-face{font-family:'Fraunces';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/fraunces-latin-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:block}
+@font-face{font-family:'Fraunces';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/fraunces-latin-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:'Fraunces';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/fraunces-latin-900.woff2') format('woff2');font-weight:900;font-style:normal;font-display:block}
+@font-face{font-family:'Fraunces';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/fraunces-latin-400-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:block}
+@font-face{font-family:'Fraunces';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/fraunces-latin-600-italic.woff2') format('woff2');font-weight:600;font-style:italic;font-display:block}
+@font-face{font-family:'Plex';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/plexmono-latin-400.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Plex';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/plexmono-latin-500.woff2') format('woff2');font-weight:500;font-display:block}
+@font-face{font-family:'Plex';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/plexmono-latin-600.woff2') format('woff2');font-weight:600;font-display:block}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px}
+:root{--paper:#EDE8DF;--ink:#1B1915;--rust:#A8482B;--mut:#8B8275;--line:rgba(27,25,21,.24)}
+.stage{position:relative;width:1080px;height:1920px;background:var(--paper);overflow:hidden;color:var(--ink)}
+.mono{font-family:'Plex',monospace}
+.serif{font-family:'Fraunces',serif}
+.frame{position:absolute;inset:40px;border:1px solid var(--line);pointer-events:none}
+.pad{position:absolute;inset:78px;display:flex;flex-direction:column}
+
+/* header */
+.hd{display:flex;justify-content:space-between;align-items:baseline}
+.hd .wm{font-family:'Fraunces';font-weight:600;font-size:26px;letter-spacing:.04em}
+.hd .wm b{color:var(--rust)}
+.hd .no{font-family:'Plex';font-weight:500;font-size:20px;letter-spacing:.12em;color:var(--mut)}
+.rule{height:1px;background:var(--line);margin:22px 0 0}
+
+/* eyebrow */
+.eyb{display:flex;align-items:center;gap:16px;margin-top:30px}
+.eyb .dot{width:8px;height:8px;background:var(--rust);border-radius:50%}
+.eyb span{font-family:'Plex';font-weight:600;font-size:20px;letter-spacing:.24em;text-transform:uppercase}
+
+/* headline */
+.h1{font-family:'Fraunces';line-height:.92;letter-spacing:-.02em;margin-top:26px}
+.h1 .l1{display:block;font-weight:900;font-size:132px}
+.h1 .l2{display:block;font-weight:400;font-style:italic;font-size:132px;margin-left:4px}
+.h1 .l2 em{color:var(--rust)}
+
+/* photo */
+.photo{position:relative;margin-top:38px;height:640px;border:1px solid var(--ink);
+  background:linear-gradient(150deg,#D8CDB8,#C0AD8E);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.photo .ico{opacity:.5}
+.photo .cap{position:absolute;left:0;bottom:0;background:var(--ink);color:var(--paper);
+  font-family:'Plex';font-weight:500;font-size:16px;letter-spacing:.14em;padding:12px 18px}
+.photo .pl{position:absolute;font-family:'Plex';font-weight:600;font-size:16px;letter-spacing:.24em;
+  color:rgba(27,25,21,.5);text-transform:uppercase;bottom:26px;right:22px}
+
+/* lower: price + specs */
+.low{margin-top:44px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.price .lab{font-family:'Plex';font-weight:600;font-size:19px;letter-spacing:.22em;color:var(--mut);text-transform:uppercase}
+.price .val{font-family:'Fraunces';font-weight:800;font-size:92px;line-height:.86;margin-top:12px;position:relative;display:inline-block;white-space:nowrap}
+.price .val::after{content:"";position:absolute;left:0;right:0;bottom:-14px;height:4px;background:var(--rust)}
+.specs{width:420px}
+.spec{display:flex;align-items:baseline;gap:10px;padding:14px 0;border-top:1px solid var(--line)}
+.spec:first-child{border-top:0}
+.spec .k{font-family:'Plex';font-weight:500;font-size:19px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.spec .dots{flex:1;border-bottom:1.5px dotted var(--line);transform:translateY(-6px)}
+.spec .v{font-family:'Fraunces';font-weight:700;font-size:34px}
+
+/* footer */
+.ft{margin-top:auto;padding-top:30px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.ft .ag{font-family:'Fraunces';font-weight:600;font-size:26px}
+.ft .ph{font-family:'Plex';font-weight:500;font-size:20px;letter-spacing:.08em;color:var(--rust)}
+
+/* vertical tab */
+.vtab{position:absolute;left:16px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;
+  font-family:'Plex';font-weight:600;font-size:18px;letter-spacing:.42em;text-transform:uppercase;color:var(--mut)}
+</style></head>
+<body><div class="stage">
+  <div class="frame"></div>
+  <div class="vtab">À vendre — Méridien</div>
+  <div class="pad">
+    <div class="hd"><div class="wm">Agence <b>Méridien</b></div><div class="no">N°2024—018</div></div>
+    <div class="rule"></div>
+    <div class="eyb"><span class="dot"></span><span>À vendre · Bordeaux 33000</span></div>
+
+    <div class="h1"><span class="l1">Maison</span><span class="l2">de <em>charme</em></span></div>
+
+    <div class="photo">
+      <svg class="ico" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="rgba(27,25,21,.42)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg>
+      <div class="pl">Votre photo</div>
+      <div class="cap">RÉF. 2024—018 · VISITE SUR RENDEZ-VOUS</div>
+    </div>
+
+    <div class="low">
+      <div class="price"><div class="lab">Prix</div><div class="val serif">395 000 €</div></div>
+      <div class="specs">
+        <div class="spec"><span class="k">Chambres</span><span class="dots"></span><span class="v">4</span></div>
+        <div class="spec"><span class="k">Surface</span><span class="dots"></span><span class="v">145 m²</span></div>
+        <div class="spec"><span class="k">Terrain</span><span class="dots"></span><span class="v">600 m²</span></div>
+      </div>
+    </div>
+
+    <div class="ft"><div class="ag">Camille Laurent</div><div class="ph">06 12 34 56 78</div></div>
+  </div>
+</div></body></html>
