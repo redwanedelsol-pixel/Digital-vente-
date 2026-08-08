@@ -1,0 +1,56 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-ext-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-ext-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-ext-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-ext-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-800.woff2') format('woff2');font-weight:800;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-ext-800.woff2') format('woff2');font-weight:800;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-900.woff2') format('woff2');font-weight:900;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-ext-900.woff2') format('woff2');font-weight:900;font-style:normal;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-400-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:block}
+@font-face{font-family:'Playfair Display';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/playfair-latin-600-italic.woff2') format('woff2');font-weight:600;font-style:italic;font-display:block}
+@font-face{font-family:'Inter';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/inter-latin-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/inter-latin-ext-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/inter-latin-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/inter-latin-ext-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/inter-latin-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/inter-latin-ext-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/inter-latin-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('file:///home/user/Digital-vente-/templates-canva-immobilier/fonts/inter-latin-ext-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{margin:0;padding:0}
+.stage{position:relative;overflow:hidden;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision}
+.serif{font-family:'Playfair Display',serif}
+.eyebrow{font-family:'Inter';font-weight:600;text-transform:uppercase;letter-spacing:.32em;font-size:19px}
+.grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.rule{height:1px;background:#B4874A;border:0}
+
+html,body{width:1080px;height:1920px}
+.stage{width:1080px;height:1920px}
+</style></head><body><div class="stage">
+  <div style="position:absolute;inset:0;background:#F2ECE2"></div>
+  <div style="position:absolute;inset:52px;pointer-events:none">
+    <span style="position:absolute;top:0;left:0;border-right:0;border-bottom:0;width:46px;height:46px;border:2px solid #B4874A;"></span>
+    <span style="position:absolute;top:0;right:0;border-left:0;border-bottom:0;width:46px;height:46px;border:2px solid #B4874A;"></span>
+    <span style="position:absolute;bottom:0;left:0;border-right:0;border-top:0;width:46px;height:46px;border:2px solid #B4874A;"></span>
+    <span style="position:absolute;bottom:0;right:0;border-left:0;border-top:0;width:46px;height:46px;border:2px solid #B4874A;"></span></div>
+  <div style="position:absolute;inset:52px;padding:76px 62px;display:flex;flex-direction:column;text-align:center;align-items:center;justify-content:center">
+    <div class="eyebrow" style="color:#B4874A">Sur rendez-vous</div>
+    <div class="serif" style="font-size:104px;font-weight:800;color:#211F1A;line-height:1.0;margin:28px 0 26px">Réservez<br>votre visite</div>
+    <div style="font-family:'Inter';font-weight:500;font-size:26px;color:#7B7365;max-width:660px;line-height:1.6">Une visite privée, à votre rythme, pour vous projeter en toute sérénité.</div>
+    <div style="margin-top:56px;display:inline-flex;align-items:center;gap:16px;background:#2B3B31;
+      color:#F2ECE2;font-family:'Inter';font-weight:700;font-size:26px;letter-spacing:.02em;padding:24px 44px;border-radius:999px">
+      Prendre rendez-vous
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </div>
+    <div style="margin-top:38px;font-family:'Inter';font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:16px;color:#7B7365">↑ Écrivez-moi en DM ↑</div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:74px;text-align:center"><div style="font-family:'Inter';font-weight:600;letter-spacing:.34em;
+  text-transform:uppercase;font-size:15px;color:#7B7365">Agence Méridien · Immobilier</div></div><div class="grain"></div></div></body></html>

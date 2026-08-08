@@ -1,0 +1,182 @@
+[
+  {
+    "file": "01-story-a-vendre.html",
+    "png": "01-story-a-vendre.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "02-story-vendu.html",
+    "png": "02-story-vendu.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "03-story-portes-ouvertes.html",
+    "png": "03-story-portes-ouvertes.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "04-story-baisse-prix.html",
+    "png": "04-story-baisse-prix.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "05-story-coup-de-coeur.html",
+    "png": "05-story-coup-de-coeur.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "06-story-nouveau-bien.html",
+    "png": "06-story-nouveau-bien.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "07-story-estimation.html",
+    "png": "07-story-estimation.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "08-story-sous-compromis.html",
+    "png": "08-story-sous-compromis.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "09-story-temoignage.html",
+    "png": "09-story-temoignage.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "10-story-visite-privee.html",
+    "png": "10-story-visite-privee.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "11-story-quartier.html",
+    "png": "11-story-quartier.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "12-story-conseils.html",
+    "png": "12-story-conseils.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "13-story-avant-apres.html",
+    "png": "13-story-avant-apres.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "14-story-bientot.html",
+    "png": "14-story-bientot.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "15-story-contact.html",
+    "png": "15-story-contact.png",
+    "w": 1080,
+    "h": 1920
+  },
+  {
+    "file": "16-post-a-vendre.html",
+    "png": "16-post-a-vendre.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "17-post-vendu.html",
+    "png": "17-post-vendu.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "18-post-stats-marche.html",
+    "png": "18-post-stats-marche.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "19-post-temoignage.html",
+    "png": "19-post-temoignage.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "20-post-agent.html",
+    "png": "20-post-agent.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "21-post-checklist.html",
+    "png": "21-post-checklist.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "22-post-erreurs.html",
+    "png": "22-post-erreurs.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "23-post-quartier.html",
+    "png": "23-post-quartier.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "24-post-estimation.html",
+    "png": "24-post-estimation.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "25-post-coup-de-coeur.html",
+    "png": "25-post-coup-de-coeur.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "26-post-portes-ouvertes.html",
+    "png": "26-post-portes-ouvertes.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "27-post-avant-apres.html",
+    "png": "27-post-avant-apres.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "28-post-faq.html",
+    "png": "28-post-faq.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "29-post-financement.html",
+    "png": "29-post-financement.png",
+    "w": 1080,
+    "h": 1080
+  },
+  {
+    "file": "30-post-contact.html",
+    "png": "30-post-contact.png",
+    "w": 1080,
+    "h": 1080
+  }
+]
